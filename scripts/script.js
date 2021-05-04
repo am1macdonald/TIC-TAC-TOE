@@ -8,7 +8,7 @@ const Game = (() => {
         const sayPiece = () => alert(`you play ${symbol}`);
         const makeSelection = () => symbol;
         const sayName = () => console.log(playerName);
-        return { sayName };
+        return { sayName, name, sayPiece };
     };
     const Gameboard = () => {
         this.board = ['','','','','','','','',''];
@@ -16,10 +16,18 @@ const Game = (() => {
     };    
 
     const NewRound = () => {
-        let playerOne = Player(prompt("Whats ur name?"), prompt(`${symbolArr[0]} or ${symbolArr[1]}`));
-        let playerTwo = Player(prompt("Whats ur name?"), prompt(`${symbolArr[0]} or ${symbolArr[1]}`));
+        const playerOne = Player(prompt("Whats ur name?"), symbolArr[0]);
         playerOne.sayName();
+        playerOne.sayPiece();
+        console.log(playerOne); 
+
+
+        const playerTwo = Player(prompt("Whats ur name?"), symbolArr[1]);        
         playerTwo.sayName();
+        playerTwo.sayPiece();
+        console.log(playerTwo);
+        
+        return {playerOne, playerTwo};
     };  
 
     const displayBoard = (() => {
