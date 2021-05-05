@@ -13,7 +13,15 @@ const game = (() => {
 
     const gameboard = (() => {
         const board = ['','','','','','','','',''];
-        return { board };
+
+        function render() {
+            for (let i = 0; i < 9; i++){
+                console.log(cacheDom.gridArray[i]);
+                cacheDom.gridArray[i].innerHTML = board[i];
+            };
+        };
+
+        return { board, render };
     })();    
 
     const gamePlay = (() => {
@@ -21,7 +29,6 @@ const game = (() => {
             alert("nice try pal...");
             location.reload();
         };
-
 
         const playerOne = Player('A', symbolArr[0]);
         if (!playerOne.name) {
@@ -53,11 +60,11 @@ const game = (() => {
                 console.log(playerTwo.symbol);
                 playerTwo.sayName();
             };
-            console.log(gameboard.board);
+            gameboard.render();
             element.removeEventListener('click', gamePlay.nextTurn);
         };
 
-        const checkGameOver = () => {
+        function checkGameOver () {
             switch (gameboard.board){
                 case (board[0] === board[1] && board[1] === board[2]):
                     console.log(`${board[0]} wins the game!`);
@@ -71,17 +78,14 @@ const game = (() => {
     })(); 
 
     const cacheDom = (() => {
-        gridArray = Array.from(document.getElementsByClassName("game-cell"));
+        const gridArray = Array.from(document.getElementsByClassName("game-cell"));
+        return { gridArray };
     })();
 
     const bindEvents = (() => {
-        gridArray.forEach(element => { element.addEventListener('click', gamePlay.nextTurn) });
+        cacheDom.gridArray.forEach(element => { element.addEventListener('click', gamePlay.nextTurn) });
     })();
 
-    const displayController = (() => {
-
-        const render = () => {};
-        
-    })();
+    
     return { cacheDom, gamePlay }
 })();

@@ -38,6 +38,10 @@ main{
 .game-cell {
     font-size: 6rem;
     background-color: darkorange;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .x-class {
 
