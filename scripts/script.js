@@ -8,7 +8,7 @@ const game = (() => {
         const sayPiece = () => console.log(`you play ${symbol}`);
         const makeSelection = () => symbol;
         const sayName = () => console.log("Player: " + playerName);
-        return { sayName, sayPiece, makeSelection, name };
+        return { sayName, sayPiece, makeSelection, name, symbol };
     };
 
     const gameboard = (() => {
@@ -37,19 +37,20 @@ const game = (() => {
         playerTwo.sayName();
         playerTwo.sayPiece();
 
+        let turn = 0;
+
         function nextTurn(index) {
-            let turn = 0;
             if (turn === 0){
                 turn = 1;
-                console.log('one')
+                console.log(playerOne.symbol);
                 playerOne.sayName();
             }
             else {
                 turn = 0;
-                console.log('two')
+                console.log(playerTwo.symbol);
                 playerTwo.sayName();
             };
-            console.log(index);
+            console.log(event.currentTarget.removeEventListener('click', gamePlay.nextTurn));
         };
 
         const checkGameOver = () => {
@@ -70,9 +71,7 @@ const game = (() => {
     })();
 
     const bindEvents = (() => {
-        gridArray.forEach(element => {
-            element.addEventListener('click', () => { gamePlay.nextTurn(element.id) });
-        });
+        gridArray.forEach(element => { element.addEventListener('click', gamePlay.nextTurn) });
     })();
 
     const displayController = (() => {
