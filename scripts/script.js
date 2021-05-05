@@ -1,6 +1,6 @@
 const game = (() => {
 
-    const symbolArr = [String.fromCharCode(10060), String.fromCharCode(9711)];
+    const symbolArr = [String.fromCharCode(10060), String.fromCharCode(8413)];
 
     const Player = (name, pieceSelection) => {
         const playerName = name;
@@ -62,7 +62,7 @@ const game = (() => {
                 console.log(playerTwo.symbol);
                 playerTwo.sayName();
             };
-            // gameboard.render();
+            gameboard.render();
             element.removeEventListener('click', gamePlay.nextTurn);
         };
 
