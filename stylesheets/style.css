@@ -38,19 +38,19 @@ main{
 .game-cell {
     font-size: 6rem;
     background-color: darkorange;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 .x-class {
 
 }
 .outer-circle {
     background-color: black;
-
     width: 75%;
     height: 75%;
-
+    border-radius: 50%;
+}
+.inner-circle {
+    background-color: darkorange;
+    width: 65%;
+    height: 65%;
     border-radius: 50%;
 }

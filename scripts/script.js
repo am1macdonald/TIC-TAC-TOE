@@ -48,7 +48,7 @@ const game = (() => {
 
         function nextTurn() {
             let element = event.currentTarget;
-            let circleDiv = '<div class="outer-circle"><div class="inner-circle"></div></div>';
+            let circleDiv = '<div class="outer-circle flex-center"><div class="inner-circle"></div></div>';
             if (turn === 0){
                 turn = 1;
                 console.log(gameboard.board[element.id] = playerOne.symbol);
