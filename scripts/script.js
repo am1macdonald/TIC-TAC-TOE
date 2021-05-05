@@ -39,18 +39,22 @@ const game = (() => {
 
         let turn = 0;
 
-        function nextTurn(index) {
+        function nextTurn() {
+            let element = event.currentTarget;
             if (turn === 0){
                 turn = 1;
+                console.log(gameboard.board[element.id] = playerOne.symbol);
                 console.log(playerOne.symbol);
                 playerOne.sayName();
             }
             else {
                 turn = 0;
+                console.log(gameboard.board[element.id] = playerTwo.symbol);
                 console.log(playerTwo.symbol);
                 playerTwo.sayName();
             };
-            console.log(event.currentTarget.removeEventListener('click', gamePlay.nextTurn));
+            console.log(gameboard.board);
+            element.removeEventListener('click', gamePlay.nextTurn);
         };
 
         const checkGameOver = () => {
