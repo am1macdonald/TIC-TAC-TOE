@@ -48,6 +48,7 @@ const game = (() => {
 
         function nextTurn() {
             let element = event.currentTarget;
+            let circleDiv = '<div class="outer-circle"><div class="inner-circle"></div></div>';
             if (turn === 0){
                 turn = 1;
                 console.log(gameboard.board[element.id] = playerOne.symbol);
@@ -57,10 +58,11 @@ const game = (() => {
             else {
                 turn = 0;
                 console.log(gameboard.board[element.id] = playerTwo.symbol);
+                element.innerHTML = circleDiv;
                 console.log(playerTwo.symbol);
                 playerTwo.sayName();
             };
-            gameboard.render();
+            // gameboard.render();
             element.removeEventListener('click', gamePlay.nextTurn);
         };
 

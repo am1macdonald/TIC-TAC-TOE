@@ -46,6 +46,11 @@ main{
 .x-class {
 
 }
-.o-class {
-    
+.outer-circle {
+    background-color: black;
+
+    width: 75%;
+    height: 75%;
+
+    border-radius: 50%;
 }
