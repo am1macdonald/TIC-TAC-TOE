@@ -1,10 +1,10 @@
-(function() {
+const game = (() => {
 
     const symbolArr = [String.fromCharCode(10060), String.fromCharCode(9711)];
 
     const Player = (name, pieceSelection) => {
-        this.playerName = name;
-        this.symbol = pieceSelection;        
+        const playerName = name;
+        const symbol = pieceSelection;        
         const sayPiece = () => console.log(`you play ${symbol}`);
         const makeSelection = () => symbol;
         const sayName = () => console.log("Player: " + playerName);
@@ -12,7 +12,7 @@
     };
 
     const gameboard = (() => {
-        this.board = ['','','','','','','','',''];
+        const board = ['','','','','','','','',''];
         return { board };
     })();    
 
@@ -22,24 +22,35 @@
             location.reload();
         };
 
-        function nextTurn(element) {
 
-            console.log(element.id);
-        };
-
-        const playerOne = Player("A", symbolArr[0]);
+        const playerOne = Player('A', symbolArr[0]);
         if (!playerOne.name) {
             errorMessage();
         };
         playerOne.sayName();
         playerOne.sayPiece();
 
-        const playerTwo = Player("B", symbolArr[1]);
+        const playerTwo = Player('B', symbolArr[1]);
         if (!playerTwo.name) {
             errorMessage();
         };      
         playerTwo.sayName();
         playerTwo.sayPiece();
+
+        function nextTurn(index) {
+            let turn = 0;
+            if (turn === 0){
+                turn = 1;
+                console.log('one')
+                playerOne.sayName();
+            }
+            else {
+                turn = 0;
+                console.log('two')
+                playerTwo.sayName();
+            };
+            console.log(index);
+        };
 
         const checkGameOver = () => {
             switch (gameboard.board){
@@ -51,7 +62,7 @@
             };
         };
 
-        return { nextTurn };
+        return { nextTurn, playerOne, playerTwo };
     })(); 
 
     const cacheDom = (() => {
@@ -60,7 +71,7 @@
 
     const bindEvents = (() => {
         gridArray.forEach(element => {
-            element.addEventListener('click', () => { gamePlay.nextTurn(element) });
+            element.addEventListener('click', () => { gamePlay.nextTurn(element.id) });
         });
     })();
 
@@ -69,5 +80,5 @@
         const render = () => {};
         
     })();
-    return { cacheDom }
+    return { cacheDom, gamePlay }
 })();
