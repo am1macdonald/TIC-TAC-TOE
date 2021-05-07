@@ -17,7 +17,6 @@ const game = (() => {
 
         function render() {
             for (let i = 0; i < 9; i++){
-                console.log(cacheDom.gridArray[i]);
                 cacheDom.gridArray[i].innerHTML = board[i];
             };
         };
@@ -52,29 +51,29 @@ const game = (() => {
             let circleDiv = '<div class="outer-circle flex-center"><div class="inner-circle"></div></div>';
             if (turn === 0){
                 turn = 1;
-                console.log(gameboard.board[element.id] = playerOne.symbol);
-                console.log(playerOne.symbol);
+                gameboard.board[element.id] = playerOne.symbol;
                 playerOne.sayName();
             }
             else {
                 turn = 0;
-                console.log(gameboard.board[element.id] = circleDiv);
+                gameboard.board[element.id] = circleDiv;
                 element.innerHTML = circleDiv;
-                console.log(playerTwo.symbol);
                 playerTwo.sayName();
             };
             gameboard.render();
             element.removeEventListener('click', gamePlay.nextTurn);
+            checkGameOver(gameboard.board);
         };
 
-        function checkGameOver () {
-            switch (gameboard.board){
-                case (board[0] === board[1] && board[1] === board[2]):
-                    console.log(`${board[0]} wins the game!`);
-                    break;
-                default:
-                    nextTurn();
-            };
+        function checkGameOver(board) {
+            console.log(board);
+            if ( 
+                (board[0].length > 0 && board[1] === board[0] && board[1] === board[2]) ||
+                (board[3].length > 0 && board[3] === board[4] && board[4] === board[5])
+            ){
+                console.log('you win!')
+            }
+            else {};
         };
 
         return { nextTurn, playerOne, playerTwo };
