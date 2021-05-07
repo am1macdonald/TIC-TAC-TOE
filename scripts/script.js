@@ -4,11 +4,12 @@ const game = (() => {
 
     const Player = (name, pieceSelection) => {
         const playerName = name;
+        const getName = () => playerName;
         const symbol = pieceSelection;        
         const sayPiece = () => console.log(`you play ${symbol}`);
         const makeSelection = () => symbol;
         const sayName = () => console.log("Player: " + playerName);
-        return { sayName, sayPiece, makeSelection, name, symbol };
+        return { sayName, sayPiece, makeSelection, getName, symbol };
     };
 
     const gameboard = (() => {
@@ -31,14 +32,14 @@ const game = (() => {
         };
 
         const playerOne = Player('A', symbolArr[0]);
-        if (!playerOne.name) {
+        if (!playerOne.getName) {
             errorMessage();
         };
         playerOne.sayName();
         playerOne.sayPiece();
 
         const playerTwo = Player('B', symbolArr[1]);
-        if (!playerTwo.name) {
+        if (!playerTwo.getName) {
             errorMessage();
         };      
         playerTwo.sayName();
@@ -57,7 +58,7 @@ const game = (() => {
             }
             else {
                 turn = 0;
-                console.log(gameboard.board[element.id] = playerTwo.symbol);
+                console.log(gameboard.board[element.id] = circleDiv);
                 element.innerHTML = circleDiv;
                 console.log(playerTwo.symbol);
                 playerTwo.sayName();
