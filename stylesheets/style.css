@@ -31,9 +31,9 @@ main{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
-    grid-gap: 0.5rem;
+    grid-gap: 2%;
 
-    padding: 0.5rem;
+    padding: 2%;
 }
 .game-cell {
     min-width: 100%;

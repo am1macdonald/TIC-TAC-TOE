@@ -13,7 +13,7 @@ const game = (() => {
     };
 
     const gameboard = (() => {
-        const board = ['0','1','2','3','4','5','6','7','8'];
+        const board = ['','','','','','','','',''];
         const getBoard = () => board;
         const addChoice = (choice, square) => board[square] = choice;
         function render() {
@@ -51,6 +51,8 @@ const game = (() => {
         let turn = 0;
 
         function nextTurn() {
+
+            console.log(gameboard.getBoard());
             let element = event.currentTarget;
             const circleDiv = '<div class="outer-circle flex-center"><div class="inner-circle"></div></div>';
             if (turn === 0){
@@ -69,23 +71,39 @@ const game = (() => {
         };
 
         function checkGameOver(board) {
-            console.log(board);
-            if ( 
-                //Logic determines if all in row are the same and not empty
-                (board[0].length > 0 && 
-                (board[0] === board[1] && board[1] === board[2]) ||
+            if ( board[0].length > 0 ) { 
+
+                if ((board[0] === board[1] && board[1] === board[2]) ||
                 (board[0] === board[3] && board[3] === board[6]) ||
-                (board[0] === board[4] && board[4] === board[8])) ||
+                (board[0] === board[4] && board[4] === board[8])) {
+                    
+                    alert('you win!');
 
-                (board[3].length > 0 && board[3] === board[4] && board[4] === board[5]) ||
+                };
 
-                (board[6].length > 0 && 
-                (board[6] === board[7] && board[7] === board[8]) ||
-                (board[6] === board[4] && board[4] === board[2])) ||
+            };
+            if ( board[3].length > 0 ){
 
-                (board[1].length > 0 && board[1] === board[4] && board[4] === board[7]) ||
+                if (board[3] === board[4] && board[4] === board[5]) {
 
-                (board[2].length > 0 && board[2] === board[5] && board[5] === board[8])                
+                    alert('you win!');
+
+                };
+
+            };
+            if (board[6].length > 0 ) {
+
+                if ((board[6] === board[7] && board[7] === board[8]) ||
+                (board[6] === board[4] && board[4] === board[2])){
+
+                    alert('you win!');
+
+                };
+
+            };
+            if (board[1].length > 0 && board[1] === board[4] && board[4] === board[7] ||
+
+                (board[2].length > 0 && board[2] === board[5] && board[5] === board[8])             
             ){
                 alert('you win!')
             };
