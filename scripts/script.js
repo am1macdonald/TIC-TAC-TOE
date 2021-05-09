@@ -13,15 +13,19 @@ const game = (() => {
     };
 
     const gameboard = (() => {
-        const board = ['','','','','','','','',''];
-
+        const board = ['0','1','2','3','4','5','6','7','8'];
+        const getBoard = () => board;
+        const addChoice = (choice, square) => board[square] = choice;
         function render() {
             for (let i = 0; i < 9; i++){
                 cacheDom.gridArray[i].innerHTML = board[i];
             };
         };
-
-        return { board, render };
+        return { 
+            getBoard, 
+            addChoice, 
+            render
+        };
     })();    
 
     const gamePlay = (() => {
@@ -48,32 +52,43 @@ const game = (() => {
 
         function nextTurn() {
             let element = event.currentTarget;
-            let circleDiv = '<div class="outer-circle flex-center"><div class="inner-circle"></div></div>';
+            const circleDiv = '<div class="outer-circle flex-center"><div class="inner-circle"></div></div>';
             if (turn === 0){
                 turn = 1;
-                gameboard.board[element.id] = playerOne.symbol;
+                gameboard.addChoice(playerOne.symbol, element.id);
                 playerOne.sayName();
             }
             else {
                 turn = 0;
-                gameboard.board[element.id] = circleDiv;
-                element.innerHTML = circleDiv;
+                gameboard.addChoice(circleDiv, element.id);
                 playerTwo.sayName();
             };
             gameboard.render();
             element.removeEventListener('click', gamePlay.nextTurn);
-            checkGameOver(gameboard.board);
+            checkGameOver(gameboard.getBoard());
         };
 
         function checkGameOver(board) {
             console.log(board);
             if ( 
-                (board[0].length > 0 && board[1] === board[0] && board[1] === board[2]) ||
-                (board[3].length > 0 && board[3] === board[4] && board[4] === board[5])
+                //Logic determines if all in row are the same and not empty
+                (board[0].length > 0 && 
+                (board[0] === board[1] && board[1] === board[2]) ||
+                (board[0] === board[3] && board[3] === board[6]) ||
+                (board[0] === board[4] && board[4] === board[8])) ||
+
+                (board[3].length > 0 && board[3] === board[4] && board[4] === board[5]) ||
+
+                (board[6].length > 0 && 
+                (board[6] === board[7] && board[7] === board[8]) ||
+                (board[6] === board[4] && board[4] === board[2])) ||
+
+                (board[1].length > 0 && board[1] === board[4] && board[4] === board[7]) ||
+
+                (board[2].length > 0 && board[2] === board[5] && board[5] === board[8])                
             ){
-                console.log('you win!')
-            }
-            else {};
+                alert('you win!')
+            };
         };
 
         return { nextTurn, playerOne, playerTwo };
@@ -89,5 +104,5 @@ const game = (() => {
     })();
 
     
-    return { cacheDom, gamePlay }
+    return { cacheDom, gamePlay, gameboard }
 })();
