@@ -51,13 +51,13 @@ const game = (() => {
         let turn = 0;
 
         function nextTurn() {
-
             console.log(gameboard.getBoard());
             let element = event.currentTarget;
             const circleDiv = '<div class="outer-circle flex-center"><div class="inner-circle"></div></div>';
+            const xDiv = '<div class="x-div"></div><div class="x-div other-half"></div>';;
             if (turn === 0){
                 turn = 1;
-                gameboard.addChoice(playerOne.symbol, element.id);
+                gameboard.addChoice(xDiv, element.id);
                 playerOne.sayName();
             }
             else {
@@ -71,44 +71,30 @@ const game = (() => {
         };
 
         function checkGameOver(board) {
-            if ( board[0].length > 0 ) { 
-
+            if ( board[0].length > 0 ) {
                 if ((board[0] === board[1] && board[1] === board[2]) ||
                 (board[0] === board[3] && board[3] === board[6]) ||
-                (board[0] === board[4] && board[4] === board[8])) {
-                    
+                (board[0] === board[4] && board[4] === board[8])) {                    
                     alert('you win!');
-
                 };
-
             };
             if ( board[3].length > 0 ){
-
                 if (board[3] === board[4] && board[4] === board[5]) {
-
                     alert('you win!');
-
                 };
-
             };
             if (board[6].length > 0 ) {
-
                 if ((board[6] === board[7] && board[7] === board[8]) ||
                 (board[6] === board[4] && board[4] === board[2])){
-
                     alert('you win!');
-
                 };
-
             };
             if (board[1].length > 0 && board[1] === board[4] && board[4] === board[7] ||
-
                 (board[2].length > 0 && board[2] === board[5] && board[5] === board[8])             
             ){
                 alert('you win!')
             };
         };
-
         return { nextTurn, playerOne, playerTwo };
     })(); 
 
