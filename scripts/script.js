@@ -54,7 +54,7 @@ const game = (() => {
             console.log(gameboard.getBoard());
             let element = event.currentTarget;
             const circleDiv = '<div class="outer-circle flex-center"><div class="inner-circle"></div></div>';
-            const xDiv = '<div class="x-div"></div><div class="x-div other-half"></div>';;
+            const xDiv = '<div class="x-div"></div><div class="x-div other-half"></div>';
             if (turn === 0){
                 turn = 1;
                 gameboard.addChoice(xDiv, element.id);
