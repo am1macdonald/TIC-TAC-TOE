@@ -19,6 +19,21 @@ main{
     height: 95vh;    
 }
 #background {}
+#popup {
+    background-color: black;
+
+    height: 50%;
+    width: 50%;
+    position: absolute;
+
+    justify-content: space-around;
+}
+#popup button {
+    height: 50%;
+    width: 40%;
+
+    font-size: xx-large;
+}
 #gameboard-container {
     background-color: black;
     width: 80vmin;
