@@ -34,8 +34,9 @@ const game = (() => {
             location.reload();
         };
 
-        const vsDecider = () => {
-
+        const gameType = () => {
+            const opponentSelections = ['player', 'computer'];
+            
         };
 
         const playerOne = Player('A', symbolArr[0]);
