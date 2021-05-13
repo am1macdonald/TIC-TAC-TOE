@@ -34,6 +34,10 @@ const game = (() => {
             location.reload();
         };
 
+        const vsDecider = () => {
+
+        };
+
         const playerOne = Player('A', symbolArr[0]);
         if (!playerOne.getName) {
             errorMessage();
@@ -100,11 +104,13 @@ const game = (() => {
 
     const cacheDom = (() => {
         const gridArray = Array.from(document.getElementsByClassName("game-cell"));
-        return { gridArray };
+        const popupButtons = Array.from(document.getElementsByClassName("popup-button"))
+        return { gridArray, popupButtons };
     })();
 
     const bindEvents = (() => {
         cacheDom.gridArray.forEach(element => { element.addEventListener('click', gamePlay.nextTurn) });
+        cacheDom.gridArray.forEach(element => { element.addEventListener('click', ) })
     })();
 
     
