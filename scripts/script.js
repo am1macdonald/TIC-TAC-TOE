@@ -110,7 +110,7 @@ const game = (() => {
 
     const bindEvents = (() => {
         cacheDom.gridArray.forEach(element => { element.addEventListener('click', gamePlay.nextTurn) });
-        cacheDom.gridArray.forEach(element => { element.addEventListener('click', ) })
+        cacheDom.popupButtons.forEach(element => { element.addEventListener('click', ) })
     })();
 
     
