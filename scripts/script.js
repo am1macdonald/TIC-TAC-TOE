@@ -40,8 +40,7 @@ const game = (() => {
             location.reload();
         };
 
-        const setGameType = (e) => {
-            console.log(e);
+        const setGameWindow = (e) => {
             if (e.currentTarget.id === 'pvp'){
 
                 //make options appear
@@ -114,7 +113,7 @@ const game = (() => {
                 gameOver()
             };
         };
-        return { nextTurn, playerOne, playerTwo, setGameType };
+        return { nextTurn, playerOne, playerTwo, setGameWindow };
     })(); 
 
     const cacheDom = (() => {
@@ -126,7 +125,7 @@ const game = (() => {
 
     const bindEvents = (() => {
         cacheDom.gridArray.forEach(element => { element.addEventListener('click', gamePlay.nextTurn) });
-        cacheDom.firstPopupButtons.forEach(element => { element.addEventListener('click', gamePlay.setGameType) });
+        cacheDom.firstPopupButtons.forEach(element => { element.addEventListener('click', gamePlay.setGameWindow) });
     })();
 
     
