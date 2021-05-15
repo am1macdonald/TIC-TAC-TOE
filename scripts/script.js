@@ -17,8 +17,14 @@ const game = (() => {
         const getBoard = () => board;
         const addChoice = (choice, square) => board[square] = choice;
         function render() {
-            for (let i = 0; i < 9; i++){
-                cacheDom.gridArray[i].innerHTML = board[i];
+            const circleDiv = '<div class="outer-circle flex-center"><div class="inner-circle"></div></div>';
+            const xDiv = '<div class="x-div"></div><div class="x-div other-half"></div>';
+            for (let i = 0; i <= 9; i++){
+                if (board[i] === symbolArr[0]) {
+                    cacheDom.gridArray[i].innerHTML = xDiv;
+                } else if (board[i] === symbolArr[1]) {
+                    cacheDom.gridArray[i].innerHTML = circleDiv;
+                };
             };
         };
         return { 
@@ -34,9 +40,15 @@ const game = (() => {
             location.reload();
         };
 
-        const gameType = () => {
-            const opponentSelections = ['player', 'computer'];
-            
+        const setGameType = (e) => {
+            console.log(e);
+            if (e.currentTarget.id === 'pvp'){
+
+                //make options appear
+            } else if (e.currentTarget.id ==='pvc'){
+                //make other options appear
+            };
+            cacheDom.firstPopup.style.display = "none";
         };
 
         const playerOne = Player('A', symbolArr[0]);
@@ -55,24 +67,26 @@ const game = (() => {
 
         let turn = 0;
 
-        function nextTurn() {
+        function nextTurn(e) {
             console.log(gameboard.getBoard());
-            let element = event.currentTarget;
-            const circleDiv = '<div class="outer-circle flex-center"><div class="inner-circle"></div></div>';
-            const xDiv = '<div class="x-div"></div><div class="x-div other-half"></div>';
+            let element = e.target;
             if (turn === 0){
                 turn = 1;
-                gameboard.addChoice(xDiv, element.id);
-                playerOne.sayName();
+                gameboard.addChoice(symbolArr[0], element.id);
             }
             else {
                 turn = 0;
-                gameboard.addChoice(circleDiv, element.id);
-                playerTwo.sayName();
+                gameboard.addChoice(symbolArr[1], element.id);
             };
             gameboard.render();
             element.removeEventListener('click', gamePlay.nextTurn);
             checkGameOver(gameboard.getBoard());
+        };
+
+        const gameOver = () => {
+            cacheDom.gridArray.forEach(element => { element.removeEventListener('click', gamePlay.nextTurn) });
+            alert('you win!');
+
         };
 
         function checkGameOver(board) {
@@ -80,40 +94,41 @@ const game = (() => {
                 if ((board[0] === board[1] && board[1] === board[2]) ||
                 (board[0] === board[3] && board[3] === board[6]) ||
                 (board[0] === board[4] && board[4] === board[8])) {                    
-                    alert('you win!');
+                    gameOver();
                 };
             };
             if ( board[3].length > 0 ){
                 if (board[3] === board[4] && board[4] === board[5]) {
-                    alert('you win!');
+                    gameOver();
                 };
             };
             if (board[6].length > 0 ) {
                 if ((board[6] === board[7] && board[7] === board[8]) ||
                 (board[6] === board[4] && board[4] === board[2])){
-                    alert('you win!');
+                    gameOver();
                 };
             };
             if (board[1].length > 0 && board[1] === board[4] && board[4] === board[7] ||
                 (board[2].length > 0 && board[2] === board[5] && board[5] === board[8])             
             ){
-                alert('you win!')
+                gameOver()
             };
         };
-        return { nextTurn, playerOne, playerTwo };
+        return { nextTurn, playerOne, playerTwo, setGameType };
     })(); 
 
     const cacheDom = (() => {
         const gridArray = Array.from(document.getElementsByClassName("game-cell"));
-        const popupButtons = Array.from(document.getElementsByClassName("popup-button"))
-        return { gridArray, popupButtons };
+        const firstPopup = document.getElementById("first-popup");
+        const firstPopupButtons = Array.from(document.getElementsByClassName("popup-button"))
+        return { gridArray, firstPopupButtons, firstPopup };
     })();
 
     const bindEvents = (() => {
         cacheDom.gridArray.forEach(element => { element.addEventListener('click', gamePlay.nextTurn) });
-        cacheDom.popupButtons.forEach(element => { element.addEventListener('click', ) })
+        cacheDom.firstPopupButtons.forEach(element => { element.addEventListener('click', gamePlay.setGameType) });
     })();
 
     
-    return { cacheDom, gamePlay, gameboard }
+    return { gamePlay}
 })();

@@ -16,19 +16,17 @@ nav{
 main{
     background-color: chartreuse;
     width: 100%;
-    height: 95vh;    
+    height: 95vh;
 }
-#background {}
-#popup {
+#first-popup {
+    display: flex;
     background-color: black;
-
-    height: 50%;
-    width: 50%;
+    height: 75vmin;
+    width: 75vmin;
     position: absolute;
-
     justify-content: space-around;
 }
-#popup button {
+.popup-button {
     height: 50%;
     width: 40%;
     font-size: xx-large;
