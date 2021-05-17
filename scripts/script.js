@@ -119,8 +119,11 @@ const game = (() => {
     const cacheDom = (() => {
         const gridArray = Array.from(document.getElementsByClassName("game-cell"));
         const firstPopup = document.getElementById("first-popup");
-        const firstPopupButtons = Array.from(document.getElementsByClassName("popup-button"))
-        return { gridArray, firstPopupButtons, firstPopup };
+        const firstPopupButtons = Array.from(document.getElementsByClassName("popup-button"));
+        const playerOneInput = document.getElementById("player-one-name");
+        const playerTwoInput = document.getElementById("player-two-name");
+        const playerSubmitButton = document.getElementById("player-submit-button");
+        return { gridArray, firstPopupButtons, firstPopup, playerOneInput, playerTwoInput };
     })();
 
     const bindEvents = (() => {
