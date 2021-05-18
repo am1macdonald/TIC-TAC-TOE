@@ -50,19 +50,27 @@ const game = (() => {
             cacheDom.firstPopup.style.display = "none";
         };
 
-        const playerOne = Player('A', symbolArr[0]);
-        if (!playerOne.getName) {
-            errorMessage();
+        const getPlayerNames = () => {
+            console.log(cacheDom.playerOneInput, cacheDom.playerTwoInput);
+            const playerOne = Player(cacheDom.playerOneInput, symbolArr[0]);
+            if (!playerOne.getName) {
+                errorMessage();
+            };
+            playerOne.sayName();
+            playerOne.sayPiece();
+            const playerTwo = Player(cacheDom.playerTwoInput, symbolArr[1]);
+            if (!playerTwo.getName) {
+                errorMessage();
+            };
+            playerTwo.sayName();
+            playerTwo.sayPiece();
+            return {
+                playerOne,
+                playerTwo
+            };
         };
-        playerOne.sayName();
-        playerOne.sayPiece();
 
-        const playerTwo = Player('B', symbolArr[1]);
-        if (!playerTwo.getName) {
-            errorMessage();
-        };      
-        playerTwo.sayName();
-        playerTwo.sayPiece();
+        
 
         let turn = 0;
 
@@ -113,24 +121,42 @@ const game = (() => {
                 gameOver()
             };
         };
-        return { nextTurn, playerOne, playerTwo, setGameWindow };
+        return { nextTurn, setGameWindow, getPlayerNames };
     })(); 
 
     const cacheDom = (() => {
         const gridArray = Array.from(document.getElementsByClassName("game-cell"));
         const firstPopup = document.getElementById("first-popup");
         const firstPopupButtons = Array.from(document.getElementsByClassName("popup-button"));
-        const playerOneInput = document.getElementById("player-one-name");
-        const playerTwoInput = document.getElementById("player-two-name");
-        const playerSubmitButton = document.getElementById("player-submit-button");
-        return { gridArray, firstPopupButtons, firstPopup, playerOneInput, playerTwoInput };
+        const playerOneInput = document.getElementById("player-one-name").value;
+        const playerTwoInput = document.getElementById("player-two-name").value;
+        const playerSubmitButton = document.getElementById("player-submit");
+        const playerInputPopup = document.getElementById("player-select-popup");
+        const playerOneCard = document.getElementById("player-1-card");
+        const playerTwoCard = document.getElementById("player-2-card");
+        return { 
+            gridArray, 
+            firstPopupButtons, 
+            firstPopup, 
+            playerOneInput, 
+            playerTwoInput, 
+            playerSubmitButton,
+            playerInputPopup,
+            playerOneCard,
+            playerTwoCard
+        };
     })();
 
     const bindEvents = (() => {
         cacheDom.gridArray.forEach(element => { element.addEventListener('click', gamePlay.nextTurn) });
         cacheDom.firstPopupButtons.forEach(element => { element.addEventListener('click', gamePlay.setGameWindow) });
+        cacheDom.playerSubmitButton.addEventListener( 'click', function (){
+            gamePlay.getPlayerNames;
+            gameboard.render;
+            cacheDom.playerInputPopup.style.display = "none";
+        });
     })();
 
     
-    return { gamePlay}
+    return { gamePlay }
 })();
