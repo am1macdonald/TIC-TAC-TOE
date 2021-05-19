@@ -2,19 +2,16 @@ const game = (() => {
 
     const symbolArr = [String.fromCharCode(10060), String.fromCharCode(8413)];
     const avatarArr = [
-        String.raw`assets\8-BIT\Color\SVG\8-bit pixel Avatar Illustrations-01.svg`,
-        String.raw`assets\8-BIT\Color\SVG\8-bit pixel Avatar Illustrations-02.svg`,
-        String.raw`assets\8-BIT\Color\SVG\8-bit pixel Avatar Illustrations-03.svg`,
-        String.raw`assets\8-BIT\Color\SVG\8-bit pixel Avatar Illustrations-04.svg`,
-        String.raw`assets\8-BIT\Color\SVG\8-bit pixel Avatar Illustrations-05.svg`,
-        String.raw`assets\8-BIT\Color\SVG\8-bit pixel Avatar Illustrations-06.svg`,
-        String.raw`assets\8-BIT\Color\SVG\8-bit pixel Avatar Illustrations-07.svg`,
-        String.raw`assets\8-BIT\Color\SVG\8-bit pixel Avatar Illustrations-08.svg`
-];
+        "assets/8-BIT/Color/SVG/8-bit pixel Avatar Illustrations-01.svg",
+        "assets/8-BIT/Color/SVG/8-bit pixel Avatar Illustrations-02.svg",
+        "assets/8-BIT/Color/SVG/8-bit pixel Avatar Illustrations-03.svg",
+        "assets/8-BIT/Color/SVG/8-bit pixel Avatar Illustrations-04.svg",
+        "assets/8-BIT/Color/SVG/8-bit pixel Avatar Illustrations-05.svg",
+        "assets/8-BIT/Color/SVG/8-bit pixel Avatar Illustrations-06.svg",
+        "assets/8-BIT/Color/SVG/8-bit pixel Avatar Illustrations-07.svg",
+        "assets/8-BIT/Color/SVG/8-bit pixel Avatar Illustrations-08.svg"
+    ];
 
-    const randomSelection = () => {
-        return avatarArr[Math.floor(Math.random() * 8)];
-    };
     const Player = (name, pieceSelection) => {
         const playerName = name;
         const getName = () => playerName;
@@ -22,14 +19,17 @@ const game = (() => {
         const sayPiece = () => console.log(`you play ${symbol}`);
         const makeSelection = () => symbol;
         const sayName = () => console.log("Player: " + playerName);
-        const playerAvatar = console.log(randomSelection()); 
-        return { sayName, sayPiece, makeSelection, getName, symbol, playerAvatar };
+        return { sayName, sayPiece, makeSelection, getName, symbol };
     };
 
     const gameboard = (() => {
         const board = ['','','','','','','','',''];
         const getBoard = () => board;
-        const addChoice = (choice, square) => board[square] = choice;
+        const addChoice = (choice, square) => {
+            if (board[square].length === 0){
+                board[square] = choice;
+            } else alert ("nice try bub...");
+        };
         function render() {
             const circleDiv = '<div class="outer-circle flex-center"><div class="inner-circle"></div></div>';
             const xDiv = '<div class="x-div"></div><div class="x-div other-half"></div>';
@@ -41,11 +41,26 @@ const game = (() => {
                 };
             };
         };
+        const changeAvatar = (e) => {
+            let getIndexNum = parseInt(e.target.dataset.avatarIndex);
+            console.log(getIndexNum);
+            let newNum;
+            if (getIndexNum >= 7) {
+                newNum = 0;
+            } else {
+                newNum = getIndexNum + 1;
+            };
+            e.target.src = avatarArr[newNum];
+            e.target.dataset.avatarIndex  = newNum;
+            console.log(newNum)
+        };
         return { 
             getBoard, 
             addChoice, 
-            render
+            render,
+            changeAvatar
         };
+
     })();
     
     const gamePlay = (() => {
@@ -63,14 +78,6 @@ const game = (() => {
             };
         };
 
-        const playerPanel = () => {
-            function render() {
-                playerOneAvatar.src = playerOne.playerAvatar;
-                playerTwoAvatar.src = playerTwo.playerAvatar;
-            };
-            return { render };
-        };
-
         const getPlayerNames = () => {
             console.log(cacheDom.playerOneInput, cacheDom.playerTwoInput);
             const playerOne = Player(cacheDom.playerOneInput, symbolArr[0]);
@@ -86,7 +93,6 @@ const game = (() => {
             playerTwo.sayName();
             playerTwo.sayPiece();
 
-            playerPanel.render();
             return {
                 playerOne,
                 playerTwo
@@ -102,7 +108,7 @@ const game = (() => {
                 turn = 1;
                 gameboard.addChoice(symbolArr[0], element.id);
             }
-            else {
+            else if (turn === 1) {
                 turn = 0;
                 gameboard.addChoice(symbolArr[1], element.id);
             };
@@ -147,6 +153,7 @@ const game = (() => {
 
     const cacheDom = (() => {
         const gridArray = Array.from(document.getElementsByClassName("game-cell"));
+        const playerAvatars = Array.from(document.getElementsByClassName("player-avatar"));
         const firstPopup = document.getElementById("first-popup");
         const playerVsPlayerButton = document.getElementById("pvp");
         const playerVsComputerButton = document.getElementById("pvc");
@@ -156,9 +163,9 @@ const game = (() => {
         const playerInputPopup = document.getElementById("player-select-popup");
         const playerNamePopup = document.getElementById("player-name-popup");
         const playerOneCard = document.getElementById("player-1-card");
-        const playerOneAvatar = document.getElementById("player-one-avatar");
         const playerTwoCard = document.getElementById("player-2-card");
-        const playerTwoAvatar = document.getElementById("player-two-avatar");
+        const playerOneNameDisplay = document.getElementById("player-one-name-display");
+        const PlayerTwoNameDisplay = document.getElementById("player-two-name-display");
         return { 
             gridArray, 
             playerVsPlayerButton,
@@ -171,8 +178,9 @@ const game = (() => {
             playerNamePopup,
             playerOneCard,
             playerTwoCard,
-            playerOneAvatar,
-            playerTwoAvatar
+            playerAvatars,
+            playerOneNameDisplay,
+            PlayerTwoNameDisplay
         };
     })();
 
@@ -194,8 +202,10 @@ const game = (() => {
         cacheDom.playerVsComputerButton.addEventListener('click', function() {
             cacheDom.firstPopup.style.display = "none";
         });
+        cacheDom.playerAvatars.forEach(element => { addEventListener('click', gameboard.changeAvatar ) });
+
         return { bindGrid };
     })();
     
-    return { gamePlay, randomSelection, cacheDom, avatarArr}
+    return { gamePlay, cacheDom, avatarArr }
 })();

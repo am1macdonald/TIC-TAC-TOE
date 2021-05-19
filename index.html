@@ -24,11 +24,9 @@
                     <div id="input-div">
                         <div class="player-input-container">
                             <input type="text" placeholder="Player 1 Name" id="player-one-name" />
-                            <button class="choose-avatar" id="player-one-avatar">Choose your avatar!</button>
                         </div>
                         <div class="player-input-input">
                             <input type="text" placeholder="Player 2 Name" id="player-two-name" />
-                            <button class="choose-avatar" id="player-two-avatar">Choose your avatar!</button>
                         </div>
                     </div>
                     <button id="player-submit">Start</button>
@@ -36,16 +34,16 @@
             </div>
             <div id="player-display">
                 <div class="player-card flex-center" id="player-1-card">
-                    <img src="assets\8-BIT\Color\SVG\8-bit pixel Avatar Illustrations-01.svg" alt="player one's avatar" class="player-avatar" id="player-one-avatar">
-                    <p>Player 1</p>
+                    <img data-avatar-index="2" src="assets\8-BIT\Color\SVG\8-bit pixel Avatar Illustrations-03.svg" alt="player one's avatar" class="player-avatar" id="player-one-avatar">
+                    <p id="player-one-name-display">Player 1</p>
                 </div>
                 <div id="button-div" class="flex-center">
                     <button>New Players</button>
                     <button>New Game</button>
                 </div>
                 <div class="player-card flex-center" id="player-2-card">
-                    <img src="assets\8-BIT\Color\SVG\8-bit pixel Avatar Illustrations-05.svg" alt="player two's avatar" class="player-avatar" id="player-two-avatar">
-                    <p>Player 1</p>
+                    <img data-avatar-index="6" src="assets\8-BIT\Color\SVG\8-bit pixel Avatar Illustrations-07.svg" alt="player two's avatar" class="player-avatar" id="player-two-avatar">
+                    <p id="player-two-name-display">Player 2</p>
                 </div>
             </div>
             <div id="gameboard-container" class="flex-center">
