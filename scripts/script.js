@@ -2,14 +2,14 @@ const game = (() => {
 
     const symbolArr = [String.fromCharCode(10060), String.fromCharCode(8413)];
     const avatarArr = [
-        "assets\8-BIT\Color\SVG\8-bit pixel Avatar Illustrations-01.svg",
-        "assets\8-BIT\Color\SVG\8-bit pixel Avatar Illustrations-02.svg",
-        "assets\8-BIT\Color\SVG\8-bit pixel Avatar Illustrations-03.svg",
-        "assets\8-BIT\Color\SVG\8-bit pixel Avatar Illustrations-04.svg",
-        "assets\8-BIT\Color\SVG\8-bit pixel Avatar Illustrations-05.svg",
-        "assets\8-BIT\Color\SVG\8-bit pixel Avatar Illustrations-06.svg",
-        "assets\8-BIT\Color\SVG\8-bit pixel Avatar Illustrations-07.svg",
-        "assets\8-BIT\Color\SVG\8-bit pixel Avatar Illustrations-08.svg"
+        String.raw`assets\8-BIT\Color\SVG\8-bit pixel Avatar Illustrations-01.svg`,
+        String.raw`assets\8-BIT\Color\SVG\8-bit pixel Avatar Illustrations-02.svg`,
+        String.raw`assets\8-BIT\Color\SVG\8-bit pixel Avatar Illustrations-03.svg`,
+        String.raw`assets\8-BIT\Color\SVG\8-bit pixel Avatar Illustrations-04.svg`,
+        String.raw`assets\8-BIT\Color\SVG\8-bit pixel Avatar Illustrations-05.svg`,
+        String.raw`assets\8-BIT\Color\SVG\8-bit pixel Avatar Illustrations-06.svg`,
+        String.raw`assets\8-BIT\Color\SVG\8-bit pixel Avatar Illustrations-07.svg`,
+        String.raw`assets\8-BIT\Color\SVG\8-bit pixel Avatar Illustrations-08.svg`
 ];
 
     const randomSelection = () => {
@@ -22,7 +22,7 @@ const game = (() => {
         const sayPiece = () => console.log(`you play ${symbol}`);
         const makeSelection = () => symbol;
         const sayName = () => console.log("Player: " + playerName);
-        const playerAvatar = randomSelection();
+        const playerAvatar = console.log(randomSelection()); 
         return { sayName, sayPiece, makeSelection, getName, symbol, playerAvatar };
     };
 
@@ -46,8 +46,8 @@ const game = (() => {
             addChoice, 
             render
         };
-    })();    
-
+    })();
+    
     const gamePlay = (() => {
         const errorMessage = () => {
             alert("nice try pal...");
@@ -61,6 +61,14 @@ const game = (() => {
             } else if (e.currentTarget.id ==='pvc'){
                 //make other options appear
             };
+        };
+
+        const playerPanel = () => {
+            function render() {
+                playerOneAvatar.src = playerOne.playerAvatar;
+                playerTwoAvatar.src = playerTwo.playerAvatar;
+            };
+            return { render };
         };
 
         const getPlayerNames = () => {
@@ -77,13 +85,13 @@ const game = (() => {
             };
             playerTwo.sayName();
             playerTwo.sayPiece();
+
+            playerPanel.render();
             return {
                 playerOne,
                 playerTwo
             };
-        };
-
-        
+        };       
 
         let turn = 0;
 
@@ -169,7 +177,9 @@ const game = (() => {
     })();
 
     const bindEvents = (() => {
-        cacheDom.gridArray.forEach(element => { element.addEventListener('click', gamePlay.nextTurn) });
+        const bindGrid = () => {
+            cacheDom.gridArray.forEach(element => { element.addEventListener('click', gamePlay.nextTurn) });
+        };
         cacheDom.playerVsPlayerButton.addEventListener('click', function(){
             gamePlay.setGameWindow;
             cacheDom.firstPopup.style.display = "none";
@@ -178,12 +188,14 @@ const game = (() => {
         cacheDom.playerSubmitButton.addEventListener( 'click', function (){
             gamePlay.getPlayerNames;
             gameboard.render;
-            cacheDom.playerNamePopup.style.display = "none";            
+            cacheDom.playerNamePopup.style.display = "none";
+            bindGrid();         
         });
         cacheDom.playerVsComputerButton.addEventListener('click', function() {
             cacheDom.firstPopup.style.display = "none";
         });
+        return { bindGrid };
     })();
     
-    return { gamePlay }
+    return { gamePlay, randomSelection, cacheDom, avatarArr}
 })();
