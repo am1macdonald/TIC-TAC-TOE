@@ -61,7 +61,7 @@ main{
 }
 .player-card {
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-around;
     background-color: cornflowerblue;
     padding: 1em 0;
     height: 50%;
