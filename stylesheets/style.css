@@ -28,14 +28,17 @@ main{
     justify-content: space-around;
 }
 #first-popup {
-    display: none;
+    display: flex;
+
+    z-index: 999;
 }
 .popup-button {
     height: 25%;
     width: 35%;
     font-size: xx-large;
 }
-#player-select-popup{
+#player-name-popup{
+    display: none;
 }
 #player-data {
  flex-direction: column;
@@ -57,9 +60,15 @@ main{
     margin-right: 5%;
 }
 .player-card {
+    flex-direction: column;
+    justify-content: space-between;
     background-color: cornflowerblue;
+    padding: 1em 0;
     height: 50%;
     width: 100%;
+}
+.player-avatar{
+    height: 80%;
 }
 #gameboard {
     background-color: azure;

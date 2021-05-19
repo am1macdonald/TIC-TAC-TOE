@@ -47,7 +47,6 @@ const game = (() => {
             } else if (e.currentTarget.id ==='pvc'){
                 //make other options appear
             };
-            cacheDom.firstPopup.style.display = "none";
         };
 
         const getPlayerNames = () => {
@@ -127,21 +126,25 @@ const game = (() => {
     const cacheDom = (() => {
         const gridArray = Array.from(document.getElementsByClassName("game-cell"));
         const firstPopup = document.getElementById("first-popup");
-        const firstPopupButtons = Array.from(document.getElementsByClassName("popup-button"));
+        const playerVsPlayerButton = document.getElementById("pvp");
+        const playerVsComputerButton = document.getElementById("pvc");
         const playerOneInput = document.getElementById("player-one-name").value;
         const playerTwoInput = document.getElementById("player-two-name").value;
         const playerSubmitButton = document.getElementById("player-submit");
         const playerInputPopup = document.getElementById("player-select-popup");
+        const playerNamePopup = document.getElementById("player-name-popup");
         const playerOneCard = document.getElementById("player-1-card");
         const playerTwoCard = document.getElementById("player-2-card");
         return { 
             gridArray, 
-            firstPopupButtons, 
+            playerVsPlayerButton,
+            playerVsComputerButton,
             firstPopup, 
             playerOneInput, 
             playerTwoInput, 
             playerSubmitButton,
             playerInputPopup,
+            playerNamePopup,
             playerOneCard,
             playerTwoCard
         };
@@ -149,14 +152,20 @@ const game = (() => {
 
     const bindEvents = (() => {
         cacheDom.gridArray.forEach(element => { element.addEventListener('click', gamePlay.nextTurn) });
-        cacheDom.firstPopupButtons.forEach(element => { element.addEventListener('click', gamePlay.setGameWindow) });
+        cacheDom.playerVsPlayerButton.addEventListener('click', function(){
+            gamePlay.setGameWindow;
+            cacheDom.firstPopup.style.display = "none";
+            cacheDom.playerNamePopup.style.display = "flex";
+        });
         cacheDom.playerSubmitButton.addEventListener( 'click', function (){
             gamePlay.getPlayerNames;
             gameboard.render;
-            cacheDom.playerInputPopup.style.display = "none";
+            cacheDom.playerNamePopup.style.display = "none";            
+        });
+        cacheDom.playerVsComputerButton.addEventListener('click', function() {
+            cacheDom.firstPopup.style.display = "none";
         });
     })();
-
     
     return { gamePlay }
 })();

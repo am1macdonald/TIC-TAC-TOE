@@ -19,24 +19,34 @@
                 <button class="popup-button" id="pvp">Player vs Player</button>
                 <button class="popup-button" id="pvc">Player vs Computer</button>
             </div>
-            <div id="player-select-popup" class="popup flex-center">
+            <div id="player-name-popup" class="popup flex-center">
                 <div id="player-data" class="flex-center">
                     <div id="input-div">
-                        <input type="text" value="Player 1 Name" id="player-one-name" />
-                        <button class="choose-avatar" id="player-one-avatar"></button>
-                        <input type="text" value="Player 2 Name" id="player-two-name" />
-                        <button class="choose-avatar" id="player-two-avatar"></button>
+                        <div class="player-input-container">
+                            <input type="text" placeholder="Player 1 Name" id="player-one-name" />
+                            <button class="choose-avatar" id="player-one-avatar">Choose your avatar!</button>
+                        </div>
+                        <div class="player-input-input">
+                            <input type="text" placeholder="Player 2 Name" id="player-two-name" />
+                            <button class="choose-avatar" id="player-two-avatar">Choose your avatar!</button>
+                        </div>
                     </div>
                     <button id="player-submit">Start</button>
                 </div>
             </div>
             <div id="player-display">
-                <div class="player-card flex-center" id="player-1-card">Player 1</div>
+                <div class="player-card flex-center" id="player-1-card">
+                    <img src="" alt="player one's avatar" class="player-avatar" id="player-one-avatar">
+                    <p>Player 1</p>
+                </div>
                 <div id="button-div" class="flex-center">
                     <button>New Players</button>
                     <button>New Game</button>
                 </div>
-                <div class="player-card flex-center" id="player-2-card">Player 2</div>
+                <div class="player-card flex-center" id="player-2-card">
+                    <img src="" alt="player two's avatar" class="player-avatar" id="player-two-avatar">
+                    <p>Player 1</p>
+                </div>
             </div>
             <div id="gameboard-container" class="flex-center">
                 <div id="gameboard">
