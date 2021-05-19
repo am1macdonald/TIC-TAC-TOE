@@ -1,7 +1,20 @@
 const game = (() => {
 
     const symbolArr = [String.fromCharCode(10060), String.fromCharCode(8413)];
+    const avatarArr = [
+        "assets\8-BIT\Color\SVG\8-bit pixel Avatar Illustrations-01.svg",
+        "assets\8-BIT\Color\SVG\8-bit pixel Avatar Illustrations-02.svg",
+        "assets\8-BIT\Color\SVG\8-bit pixel Avatar Illustrations-03.svg",
+        "assets\8-BIT\Color\SVG\8-bit pixel Avatar Illustrations-04.svg",
+        "assets\8-BIT\Color\SVG\8-bit pixel Avatar Illustrations-05.svg",
+        "assets\8-BIT\Color\SVG\8-bit pixel Avatar Illustrations-06.svg",
+        "assets\8-BIT\Color\SVG\8-bit pixel Avatar Illustrations-07.svg",
+        "assets\8-BIT\Color\SVG\8-bit pixel Avatar Illustrations-08.svg"
+];
 
+    const randomSelection = () => {
+        return avatarArr[Math.floor(Math.random() * 8)];
+    };
     const Player = (name, pieceSelection) => {
         const playerName = name;
         const getName = () => playerName;
@@ -9,7 +22,8 @@ const game = (() => {
         const sayPiece = () => console.log(`you play ${symbol}`);
         const makeSelection = () => symbol;
         const sayName = () => console.log("Player: " + playerName);
-        return { sayName, sayPiece, makeSelection, getName, symbol };
+        const playerAvatar = randomSelection();
+        return { sayName, sayPiece, makeSelection, getName, symbol, playerAvatar };
     };
 
     const gameboard = (() => {
@@ -134,7 +148,9 @@ const game = (() => {
         const playerInputPopup = document.getElementById("player-select-popup");
         const playerNamePopup = document.getElementById("player-name-popup");
         const playerOneCard = document.getElementById("player-1-card");
+        const playerOneAvatar = document.getElementById("player-one-avatar");
         const playerTwoCard = document.getElementById("player-2-card");
+        const playerTwoAvatar = document.getElementById("player-two-avatar");
         return { 
             gridArray, 
             playerVsPlayerButton,
@@ -146,7 +162,9 @@ const game = (() => {
             playerInputPopup,
             playerNamePopup,
             playerOneCard,
-            playerTwoCard
+            playerTwoCard,
+            playerOneAvatar,
+            playerTwoAvatar
         };
     })();
 
