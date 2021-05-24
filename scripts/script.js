@@ -40,6 +40,9 @@ const game = (() => {
                     cacheDom.gridArray[i].innerHTML = circleDiv;
                 };
             };
+            cacheDom.playerOneNameDisplay.innerHTML = makePlayers.playerOne.getName;
+            cacheDom.playerTwoNameDisplay.innerHTML = makePlayers.playerTwo.getName;
+
         };
         const changeAvatar = (e) => {
             let getIndexNum = parseInt(e.target.dataset.avatarIndex);
@@ -78,7 +81,7 @@ const game = (() => {
             };
         };
 
-        const getPlayerNames = () => {
+        const makePlayers = () => {
             console.log(cacheDom.playerOneInput, cacheDom.playerTwoInput);
             const playerOne = Player(cacheDom.playerOneInput, symbolArr[0]);
             if (!playerOne.getName) {
@@ -148,7 +151,7 @@ const game = (() => {
                 gameOver()
             };
         };
-        return { nextTurn, setGameWindow, getPlayerNames };
+        return { nextTurn, setGameWindow, makePlayers };
     })(); 
 
     const cacheDom = (() => {
@@ -194,7 +197,7 @@ const game = (() => {
             cacheDom.playerNamePopup.style.display = "flex";
         });
         cacheDom.playerSubmitButton.addEventListener( 'click', function (){
-            gamePlay.getPlayerNames;
+            gamePlay.makePlayers;
             gameboard.render;
             cacheDom.playerNamePopup.style.display = "none";
             bindGrid();         
