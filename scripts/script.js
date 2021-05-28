@@ -1,4 +1,4 @@
-const game = (() => {
+const gameWrapper = (() => {
 
     const symbolArr = [String.fromCharCode(10060), String.fromCharCode(8413)];
     const avatarArr = [
@@ -30,40 +30,10 @@ const game = (() => {
                 board[square] = choice;
             } else alert ("nice try bub...");
         };
-        function render() {
-            const circleDiv = '<div class="outer-circle flex-center"><div class="inner-circle"></div></div>';
-            const xDiv = '<div class="x-div"></div><div class="x-div other-half"></div>';
-            for (let i = 0; i <= 9; i++){
-                if (board[i] === symbolArr[0]) {
-                    cacheDom.gridArray[i].innerHTML = xDiv;
-                } else if (board[i] === symbolArr[1]) {
-                    cacheDom.gridArray[i].innerHTML = circleDiv;
-                };
-            };
-            cacheDom.playerOneNameDisplay.innerHTML = makePlayers.playerOne.getName;
-            cacheDom.playerTwoNameDisplay.innerHTML = makePlayers.playerTwo.getName;
-
-        };
-        const changeAvatar = (e) => {
-            let getIndexNum = parseInt(e.target.dataset.avatarIndex);
-            console.log(getIndexNum);
-            let newNum;
-            if (getIndexNum >= 7) {
-                newNum = 0;
-            } else {
-                newNum = getIndexNum + 1;
-            };
-            e.target.src = avatarArr[newNum];
-            e.target.dataset.avatarIndex  = newNum;
-            console.log(newNum)
-        };
         return { 
             getBoard, 
-            addChoice, 
-            render,
-            changeAvatar
+            addChoice,
         };
-
     })();
     
     const gamePlay = (() => {
@@ -115,7 +85,7 @@ const game = (() => {
                 turn = 0;
                 gameboard.addChoice(symbolArr[1], element.id);
             };
-            gameboard.render();
+            displayController.renderGameboard();
             element.removeEventListener('click', gamePlay.nextTurn);
             checkGameOver(gameboard.getBoard());
         };
@@ -153,6 +123,42 @@ const game = (() => {
         };
         return { nextTurn, setGameWindow, makePlayers };
     })(); 
+
+    const displayController = () => {
+
+        function renderGameboard() {
+            const circleDiv = '<div class="outer-circle flex-center"><div class="inner-circle"></div></div>';
+            const xDiv = '<div class="x-div"></div><div class="x-div other-half"></div>';
+            for (let i = 0; i <= 9; i++) {
+                if (gameboard.getBoard[i] === symbolArr[0]) {
+                    cacheDom.gridArray[i].innerHTML = xDiv;
+                } else if (gameboard.getBoard[i] === symbolArr[1]) {
+                    cacheDom.gridArray[i].innerHTML = circleDiv;
+                };
+            };
+        };
+
+        const changeAvatar = (e) => {
+            let getIndexNum = parseInt(e.target.dataset.avatarIndex);
+            console.log(getIndexNum);
+            let newNum;
+            if (getIndexNum >= 7) {
+                newNum = 0;
+            } else {
+                newNum = getIndexNum + 1;
+            };
+            e.target.src = avatarArr[newNum];
+            e.target.dataset.avatarIndex = newNum;
+            console.log(newNum)
+        };
+
+
+
+        return {            
+            renderGameboard,
+            changeAvatar
+        };
+    };
 
     const cacheDom = (() => {
         const gridArray = Array.from(document.getElementsByClassName("game-cell"));
@@ -198,14 +204,14 @@ const game = (() => {
         });
         cacheDom.playerSubmitButton.addEventListener( 'click', function (){
             gamePlay.makePlayers;
-            gameboard.render;
+            displayController.renderGameboard();
             cacheDom.playerNamePopup.style.display = "none";
             bindGrid();         
         });
         cacheDom.playerVsComputerButton.addEventListener('click', function() {
             cacheDom.firstPopup.style.display = "none";
         });
-        cacheDom.playerAvatars.forEach(element => { addEventListener('click', gameboard.changeAvatar ) });
+        cacheDom.playerAvatars.forEach(element => { addEventListener('click', displayController.changeAvatar ) });
 
         return { bindGrid };
     })();
