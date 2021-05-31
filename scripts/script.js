@@ -4,39 +4,47 @@ const game = (() => {
 
     const symbolArr = [String.fromCharCode(10060), String.fromCharCode(8413)];
 
-    const Player = (name, pieceSelection) => {
-        const playerName = name;
-        const getName = () => playerName;
-        const symbol = pieceSelection;        
-        const sayPiece = () => console.log(`you play ${symbol}`);
-        const makeSelection = () => symbol;
-        const sayName = () => console.log("Player: " + playerName);
-        return { sayName, sayPiece, makeSelection, getName, symbol };
-    };
+        
+    const gameElement = (() => { 
 
-    const gameboard = (() => {
-        const board = ['','','','','','','','',''];
-        const getBoard = () => board;
-        const addChoice = (choice, square) => {
-            if (board[square].length === 0){
-                board[square] = choice;
-            } else alert ("nice try bub...");
-        };
-        return { 
-            getBoard, 
-            addChoice,
+        const Player = (name, pieceSelection) => {
+            const playerName = name;
+            const getName = () => playerName;
+            const symbol = pieceSelection;        
+            const sayPiece = () => console.log(`you play ${symbol}`);
+            const makeSelection = () => symbol;
+            const sayName = () => console.log("Player: " + playerName);
+            return { sayName, sayPiece, makeSelection, getName, symbol };
         };
 
+        const gameboard = (() => {
+            const board = ['','','','','','','','',''];
+            const getBoard = () => board;
+            const addChoice = (choice, square) => {
+                if (board[square].length === 0){
+                    board[square] = choice;
+                } else alert ("nice try bub...");
+            };
+            return { 
+                getBoard, 
+                addChoice,
+            };
+        })();  
+        return {
+            Player,
+            gameboard
+        };
     })();
+
 
     const displayManager = (() => {
         function render() {
             const circleDiv = '<div class="outer-circle flex-center"><div class="inner-circle"></div></div>';
             const xDiv = '<div class="x-div"></div><div class="x-div other-half"></div>';
             for (let i = 0; i <= 9; i++){
-                if (gameboard.getBoard()[i] === symbolArr[0]) {
+                if (gameElement.gameboard.getBoard()[i] === symbolArr[0]) {
                     cacheDom.gridArray[i].innerHTML = xDiv;
-                } else if (gameboard.getBoard()[i] === symbolArr[1]) {
+                } else if (gameElement.gameboard.getBoard()[i] === symbolArr[1]) {
                     cacheDom.gridArray[i].innerHTML = circleDiv;
                 };
             };
@@ -53,7 +61,6 @@ const game = (() => {
                 "assets/8-BIT/Color/SVG/8-bit pixel Avatar Illustrations-08.svg"
             ];
             let getIndexNum = parseInt(e.target.dataset.avatarIndex);
-            console.log(getIndexNum);
             let newNum;
             if (getIndexNum >= 7) {
                 newNum = 0;
@@ -62,7 +69,6 @@ const game = (() => {
             };
             e.target.src = avatarArr[newNum];
             e.target.dataset.avatarIndex  = newNum;
-            console.log(newNum)
         };
         return {
             render,
@@ -88,13 +94,13 @@ const game = (() => {
 
         const makePlayers = () => {
             console.log(cacheDom.playerOneInput, cacheDom.playerTwoInput);
-            const playerOne = Player(cacheDom.playerOneInput, symbolArr[0]);
+            const playerOne = gameElements.Player(cacheDom.playerOneInput, symbolArr[0]);
             if (!playerOne.getName) {
                 errorMessage();
             };
             playerOne.sayName();
             playerOne.sayPiece();
-            const playerTwo = Player(cacheDom.playerTwoInput, symbolArr[1]);
+            const playerTwo = gameElements.Player(cacheDom.playerTwoInput, symbolArr[1]);
             if (!playerTwo.getName) {
                 errorMessage();
             };
@@ -107,23 +113,38 @@ const game = (() => {
             };
         };       
 
-        let turn = 0;
+        const turnTracker = (() => {
+            let turn = 0;
+            const getTurn = () => {
+                return turn;
+            };
+            const setTurn = (num) => {
+                if (num === 0 || num === 1){
+                    turn = num;
+                };
+            };
+            return {
+                getTurn,
+                setTurn
+            };
+        })();
 
         function nextTurn(e) {
             let element = e.target;
-            if (turn === 0){
-                turn = 1;
-                gameboard.addChoice(symbolArr[0], element.id);
+            if (turnTracker.getTurn() === 0){
+                turnTracker.setTurn(1);
+                gameElement.gameboard.addChoice(symbolArr[0], element.id);
             }
-            else if (turn === 1) {
-                turn = 0;
-                gameboard.addChoice(symbolArr[1], element.id);
+            else if (turnTracker.getTurn() === 1) {
+                turnTracker.setTurn(0);
+                gameElement.gameboard.addChoice(symbolArr[1], element.id);
             };
             displayManager.render();
             element.removeEventListener('click', gamePlay.nextTurn);
-            checkGameOver(gameboard.getBoard());
 
-            console.log(gameboard.getBoard());
+            console.log(gameElement.gameboard.getBoard());
+
+            checkGameOver(gameElement.gameboard.getBoard());
         };
 
         const gameOver = () => {
@@ -157,7 +178,7 @@ const game = (() => {
                 gameOver()
             };
         };
-        return { nextTurn, setGameWindow };
+        return { nextTurn, setGameWindow, turnTracker, makePlayers };
     })(); 
 
     const cacheDom = (() => {
