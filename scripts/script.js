@@ -1,16 +1,8 @@
 const game = (() => {
 
+
+
     const symbolArr = [String.fromCharCode(10060), String.fromCharCode(8413)];
-    const avatarArr = [
-        "assets/8-BIT/Color/SVG/8-bit pixel Avatar Illustrations-01.svg",
-        "assets/8-BIT/Color/SVG/8-bit pixel Avatar Illustrations-02.svg",
-        "assets/8-BIT/Color/SVG/8-bit pixel Avatar Illustrations-03.svg",
-        "assets/8-BIT/Color/SVG/8-bit pixel Avatar Illustrations-04.svg",
-        "assets/8-BIT/Color/SVG/8-bit pixel Avatar Illustrations-05.svg",
-        "assets/8-BIT/Color/SVG/8-bit pixel Avatar Illustrations-06.svg",
-        "assets/8-BIT/Color/SVG/8-bit pixel Avatar Illustrations-07.svg",
-        "assets/8-BIT/Color/SVG/8-bit pixel Avatar Illustrations-08.svg"
-    ];
 
     const Player = (name, pieceSelection) => {
         const playerName = name;
@@ -30,21 +22,36 @@ const game = (() => {
                 board[square] = choice;
             } else alert ("nice try bub...");
         };
+        return { 
+            getBoard, 
+            addChoice,
+        };
+
+    })();
+
+    const displayManager = (() => {
         function render() {
             const circleDiv = '<div class="outer-circle flex-center"><div class="inner-circle"></div></div>';
             const xDiv = '<div class="x-div"></div><div class="x-div other-half"></div>';
             for (let i = 0; i <= 9; i++){
-                if (board[i] === symbolArr[0]) {
+                if (gameboard.getBoard()[i] === symbolArr[0]) {
                     cacheDom.gridArray[i].innerHTML = xDiv;
-                } else if (board[i] === symbolArr[1]) {
+                } else if (gameboard.getBoard()[i] === symbolArr[1]) {
                     cacheDom.gridArray[i].innerHTML = circleDiv;
                 };
             };
-            cacheDom.playerOneNameDisplay.innerHTML = makePlayers.playerOne.getName;
-            cacheDom.playerTwoNameDisplay.innerHTML = makePlayers.playerTwo.getName;
-
         };
         const changeAvatar = (e) => {
+            const avatarArr = [
+                "assets/8-BIT/Color/SVG/8-bit pixel Avatar Illustrations-01.svg",
+                "assets/8-BIT/Color/SVG/8-bit pixel Avatar Illustrations-02.svg",
+                "assets/8-BIT/Color/SVG/8-bit pixel Avatar Illustrations-03.svg",
+                "assets/8-BIT/Color/SVG/8-bit pixel Avatar Illustrations-04.svg",
+                "assets/8-BIT/Color/SVG/8-bit pixel Avatar Illustrations-05.svg",
+                "assets/8-BIT/Color/SVG/8-bit pixel Avatar Illustrations-06.svg",
+                "assets/8-BIT/Color/SVG/8-bit pixel Avatar Illustrations-07.svg",
+                "assets/8-BIT/Color/SVG/8-bit pixel Avatar Illustrations-08.svg"
+            ];
             let getIndexNum = parseInt(e.target.dataset.avatarIndex);
             console.log(getIndexNum);
             let newNum;
@@ -57,15 +64,13 @@ const game = (() => {
             e.target.dataset.avatarIndex  = newNum;
             console.log(newNum)
         };
-        return { 
-            getBoard, 
-            addChoice, 
+        return {
             render,
             changeAvatar
         };
 
     })();
-    
+
     const gamePlay = (() => {
         const errorMessage = () => {
             alert("nice try pal...");
@@ -105,7 +110,6 @@ const game = (() => {
         let turn = 0;
 
         function nextTurn(e) {
-            console.log(gameboard.getBoard());
             let element = e.target;
             if (turn === 0){
                 turn = 1;
@@ -115,9 +119,11 @@ const game = (() => {
                 turn = 0;
                 gameboard.addChoice(symbolArr[1], element.id);
             };
-            gameboard.render();
+            displayManager.render();
             element.removeEventListener('click', gamePlay.nextTurn);
             checkGameOver(gameboard.getBoard());
+
+            console.log(gameboard.getBoard());
         };
 
         const gameOver = () => {
@@ -151,7 +157,7 @@ const game = (() => {
                 gameOver()
             };
         };
-        return { nextTurn, setGameWindow, makePlayers };
+        return { nextTurn, setGameWindow };
     })(); 
 
     const cacheDom = (() => {
@@ -198,17 +204,17 @@ const game = (() => {
         });
         cacheDom.playerSubmitButton.addEventListener( 'click', function (){
             gamePlay.makePlayers;
-            gameboard.render;
+            displayManager.render;
             cacheDom.playerNamePopup.style.display = "none";
             bindGrid();         
         });
         cacheDom.playerVsComputerButton.addEventListener('click', function() {
             cacheDom.firstPopup.style.display = "none";
         });
-        cacheDom.playerAvatars.forEach(element => { addEventListener('click', gameboard.changeAvatar ) });
+        cacheDom.playerAvatars.forEach(element => { element.addEventListener('click', displayManager.changeAvatar ) });
 
         return { bindGrid };
     })();
     
-    return { gamePlay, cacheDom, avatarArr }
+    return { gamePlay, cacheDom };
 })();
