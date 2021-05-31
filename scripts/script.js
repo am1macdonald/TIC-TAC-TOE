@@ -1,11 +1,16 @@
 const game = (() => {
 
-
-
-    const symbolArr = [String.fromCharCode(10060), String.fromCharCode(8413)];
-
-        
     const gameElement = (() => { 
+
+        const symbolArr = (() => {
+            const arr = [String.fromCharCode(10060), String.fromCharCode(8413)];
+            const getArr = () => {
+                return arr;
+            };
+            return {
+                getArr
+            }
+        })();
 
         const Player = (name, pieceSelection) => {
             const playerName = name;
@@ -32,7 +37,8 @@ const game = (() => {
         })();  
         return {
             Player,
-            gameboard
+            gameboard,
+            symbolArr
         };
     })();
 
@@ -42,9 +48,9 @@ const game = (() => {
             const circleDiv = '<div class="outer-circle flex-center"><div class="inner-circle"></div></div>';
             const xDiv = '<div class="x-div"></div><div class="x-div other-half"></div>';
             for (let i = 0; i <= 9; i++){
-                if (gameElement.gameboard.getBoard()[i] === symbolArr[0]) {
+                if (gameElement.gameboard.getBoard()[i] === gameElement.symbolArr.getArr()[0]) {
                     cacheDom.gridArray[i].innerHTML = xDiv;
-                } else if (gameElement.gameboard.getBoard()[i] === symbolArr[1]) {
+                } else if (gameElement.gameboard.getBoard()[i] === gameElement.symbolArr.getArr()[1]) {
                     cacheDom.gridArray[i].innerHTML = circleDiv;
                 };
             };
@@ -94,13 +100,13 @@ const game = (() => {
 
         const makePlayers = () => {
             console.log(cacheDom.playerOneInput, cacheDom.playerTwoInput);
-            const playerOne = gameElements.Player(cacheDom.playerOneInput, symbolArr[0]);
+            const playerOne = gameElements.Player(cacheDom.playerOneInput, gameElement.symbolArr.getArr()[0]);
             if (!playerOne.getName) {
                 errorMessage();
             };
             playerOne.sayName();
             playerOne.sayPiece();
-            const playerTwo = gameElements.Player(cacheDom.playerTwoInput, symbolArr[1]);
+            const playerTwo = gameElements.Player(cacheDom.playerTwoInput, gameElement.symbolArr.getArr()[1]);
             if (!playerTwo.getName) {
                 errorMessage();
             };
@@ -133,11 +139,11 @@ const game = (() => {
             let element = e.target;
             if (turnTracker.getTurn() === 0){
                 turnTracker.setTurn(1);
-                gameElement.gameboard.addChoice(symbolArr[0], element.id);
+                gameElement.gameboard.addChoice(gameElement.symbolArr.getArr()[0], element.id);
             }
             else if (turnTracker.getTurn() === 1) {
                 turnTracker.setTurn(0);
-                gameElement.gameboard.addChoice(symbolArr[1], element.id);
+                gameElement.gameboard.addChoice(gameElement.symbolArr.getArr()[1], element.id);
             };
             displayManager.render();
             element.removeEventListener('click', gamePlay.nextTurn);
