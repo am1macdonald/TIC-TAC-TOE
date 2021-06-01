@@ -1,7 +1,6 @@
 const game = (() => {
 
     const gameElement = (() => { 
-
         const symbolArr = (() => {
             const arr = [String.fromCharCode(10060), String.fromCharCode(8413)];
             const getArr = () => {
@@ -11,7 +10,6 @@ const game = (() => {
                 getArr
             }
         })();
-
         const Player = (name, pieceSelection) => {
             const playerName = name;
             const getName = () => playerName;
@@ -21,7 +19,6 @@ const game = (() => {
             const sayName = () => console.log("Player: " + playerName);
             return { sayName, sayPiece, makeSelection, getName, symbol };
         };
-
         const gameboard = (() => {
             const board = ['','','','','','','','',''];
             const getBoard = () => board;
@@ -76,13 +73,19 @@ const game = (() => {
             e.target.src = avatarArr[newNum];
             e.target.dataset.avatarIndex  = newNum;
         };
+
+        const updatePlayerNames = (player1, player2) => {
+            cacheDom.playerOneNameDisplay.innerHTML = player1;
+            cacheDom.playerTwoNameDisplay.innerHTML = player2;
+        };
+
         return {
             render,
-            changeAvatar
+            changeAvatar,
+            updatePlayerNames
         };
 
     })();
-
     const gamePlay = (() => {
         const errorMessage = () => {
             alert("nice try pal...");
@@ -98,21 +101,22 @@ const game = (() => {
             };
         };
 
-        const makePlayers = () => {
+        const players = () => {
             console.log(cacheDom.playerOneInput, cacheDom.playerTwoInput);
-            const playerOne = gameElements.Player(cacheDom.playerOneInput, gameElement.symbolArr.getArr()[0]);
+            const playerOne = gameElement.Player(cacheDom.playerOneInput, gameElement.symbolArr.getArr()[0]);
             if (!playerOne.getName) {
                 errorMessage();
             };
-            playerOne.sayName();
+            let name1 = playerOne.sayName();
             playerOne.sayPiece();
-            const playerTwo = gameElements.Player(cacheDom.playerTwoInput, gameElement.symbolArr.getArr()[1]);
+            const playerTwo = gameElement.Player(cacheDom.playerTwoInput, gameElement.symbolArr.getArr()[1]);
             if (!playerTwo.getName) {
                 errorMessage();
             };
-            playerTwo.sayName();
+            let name2 = playerTwo.sayName();
             playerTwo.sayPiece();
 
+            displayManager.updatePlayerNames(name1, name2);
             return {
                 playerOne,
                 playerTwo
@@ -153,7 +157,11 @@ const game = (() => {
             checkGameOver(gameElement.gameboard.getBoard());
         };
 
-        const gameOver = () => {
+        const gameOver = (tie) => {
+            if (tie === true){
+                alert("It's a tie");
+                return;
+            }
             cacheDom.gridArray.forEach(element => { element.removeEventListener('click', gamePlay.nextTurn) });
             alert('you win!');
 
@@ -163,28 +171,38 @@ const game = (() => {
             if ( board[0].length > 0 ) {
                 if ((board[0] === board[1] && board[1] === board[2]) ||
                 (board[0] === board[3] && board[3] === board[6]) ||
-                (board[0] === board[4] && board[4] === board[8])) {                    
-                    gameOver();
+                (board[0] === board[4] && board[4] === board[8])) {     
+                    gameOver();               
+                    return true;
                 };
             };
             if ( board[3].length > 0 ){
                 if (board[3] === board[4] && board[4] === board[5]) {
-                    gameOver();
+                    gameOver(); 
+                    return true;
                 };
             };
             if (board[6].length > 0 ) {
                 if ((board[6] === board[7] && board[7] === board[8]) ||
                 (board[6] === board[4] && board[4] === board[2])){
-                    gameOver();
+                    gameOver(); 
+                    return true;
                 };
             };
             if (board[1].length > 0 && board[1] === board[4] && board[4] === board[7] ||
-                (board[2].length > 0 && board[2] === board[5] && board[5] === board[8])             
-            ){
-                gameOver()
+                (board[2].length > 0 && board[2] === board[5] && board[5] === board[8])){
+                    gameOver();              
+                    return true;
+            };
+            if (board.every(x => x.length > 0)){
+                gameOver(true);
+                return;
+            }
+            else {
+                return false;
             };
         };
-        return { nextTurn, setGameWindow, turnTracker, makePlayers };
+        return { nextTurn, setGameWindow, turnTracker, players };
     })(); 
 
     const cacheDom = (() => {
@@ -201,7 +219,7 @@ const game = (() => {
         const playerOneCard = document.getElementById("player-1-card");
         const playerTwoCard = document.getElementById("player-2-card");
         const playerOneNameDisplay = document.getElementById("player-one-name-display");
-        const PlayerTwoNameDisplay = document.getElementById("player-two-name-display");
+        const playerTwoNameDisplay = document.getElementById("player-two-name-display");
         return { 
             gridArray, 
             playerVsPlayerButton,
@@ -216,7 +234,7 @@ const game = (() => {
             playerTwoCard,
             playerAvatars,
             playerOneNameDisplay,
-            PlayerTwoNameDisplay
+            playerTwoNameDisplay
         };
     })();
 
@@ -230,7 +248,7 @@ const game = (() => {
             cacheDom.playerNamePopup.style.display = "flex";
         });
         cacheDom.playerSubmitButton.addEventListener( 'click', function (){
-            gamePlay.makePlayers;
+            gamePlay.players();
             displayManager.render;
             cacheDom.playerNamePopup.style.display = "none";
             bindGrid();         
