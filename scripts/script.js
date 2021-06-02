@@ -27,9 +27,14 @@ const game = (() => {
                     board[square] = choice;
                 } else alert ("nice try bub...");
             };
+            const resetBoard = () => {
+                board = ['', '', '', '', '', '', '', '', ''];
+                bindEvents.bindGrid();
+            };
             return { 
                 getBoard, 
                 addChoice,
+                resetBoard
             };
         })();  
         return {

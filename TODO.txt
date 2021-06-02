@@ -1,6 +1,9 @@
-- disable eventListeners until ready to play
-- start button fetches data from input fields IF char count is more than 2 and non-numerical
+- add function to newGame button
+- add function to newPlayers button
 
+
+- fix player name display
 - gameEnd function must find who wins and announce it!
 - maybe make a game win counter
+
 
