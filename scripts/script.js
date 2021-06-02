@@ -20,7 +20,7 @@ const game = (() => {
             return { sayName, sayPiece, makeSelection, getName, symbol };
         };
         const gameboard = (() => {
-            const board = ['','','','','','','','',''];
+            let board = ['','','','','','','','',''];
             const getBoard = () => board;
             const addChoice = (choice, square) => {
                 if (board[square].length === 0){
@@ -28,8 +28,9 @@ const game = (() => {
                 } else alert ("nice try bub...");
             };
             const resetBoard = () => {
-                board = ['', '', '', '', '', '', '', '', ''];
+                board.forEach(thing => thing = '');
                 bindEvents.bindGrid();
+                console.log(board);
             };
             return { 
                 getBoard, 
@@ -225,6 +226,7 @@ const game = (() => {
         const playerTwoCard = document.getElementById("player-2-card");
         const playerOneNameDisplay = document.getElementById("player-one-name-display");
         const playerTwoNameDisplay = document.getElementById("player-two-name-display");
+        const newGameButton = document.getElementById("new-game-button");
         return { 
             gridArray, 
             playerVsPlayerButton,
@@ -239,7 +241,8 @@ const game = (() => {
             playerTwoCard,
             playerAvatars,
             playerOneNameDisplay,
-            playerTwoNameDisplay
+            playerTwoNameDisplay,
+            newGameButton
         };
     })();
 
@@ -262,6 +265,7 @@ const game = (() => {
             cacheDom.firstPopup.style.display = "none";
         });
         cacheDom.playerAvatars.forEach(element => { element.addEventListener('click', displayManager.changeAvatar ) });
+        cacheDom.newGameButton.addEventListener('click', gameElement.gameboard.resetBoard);
 
         return { bindGrid };
     })();
