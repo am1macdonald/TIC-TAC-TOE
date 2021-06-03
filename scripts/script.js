@@ -1,6 +1,6 @@
 const game = (() => {
 
-    const gameElement = (() => { 
+    const gameElements = (() => {
         const symbolArr = (() => {
             const arr = [String.fromCharCode(10060), String.fromCharCode(8413)];
             const getArr = () => {
@@ -10,6 +10,7 @@ const game = (() => {
                 getArr
             }
         })();
+        
         const Player = (name, pieceSelection) => {
             const playerName = name;
             const getName = () => playerName;
@@ -18,6 +19,10 @@ const game = (() => {
             const makeSelection = () => symbol;
             const sayName = () => console.log("Player: " + playerName);
             return { sayName, sayPiece, makeSelection, getName };
+        };
+        const errorMessage = () => {
+            alert("nice try pal...");
+            location.reload();
         };
         const gameboard = (() => {
             let board = ['','','','','','','','',''];
@@ -39,47 +44,33 @@ const game = (() => {
                 resetBoard
             };
         })();
-        const playerManager = () => {
-            const errorMessage = () => {
-                alert("nice try pal...");
-                location.reload();
-            };
-            const playerOne = Player(cacheDom.playerOneInput, symbolArr.getArr()[0]);
-            if (playerOne.getName === "") {
+        function makePlayers() {
+            const playerOne = gameElements.Player(cacheDom.playerOneInput, symbolArr.getArr()[0]);
+            if (playerOne.getName() === "") {
                 errorMessage();
             };
+            console.log(playerOne.getName());
             playerOne.sayName();
             playerOne.sayPiece();
-            const playerTwo = Player(cacheDom.playerTwoInput, symbolArr.getArr()[1]);
-            if (!playerTwo.getName === "") {
+            const playerTwo = gameElements.Player(cacheDom.playerTwoInput, symbolArr.getArr()[1]);
+            if (!playerTwo.getName() === "") {
                 errorMessage();
             };
             playerTwo.sayPiece();
             playerTwo.sayName();
-            return {
-                playerOne,
-                playerTwo
-            };
+            console.log(playerTwo);
         };
-        return {
-            Player,
-            gameboard,
-            symbolArr,
-            playerManager
-        };
-    })();
-    const displayManager = (() => {
         function render() {
             const circleDiv = '<div class="outer-circle flex-center"><div class="inner-circle"></div></div>';
             const xDiv = '<div class="x-div"></div><div class="x-div other-half"></div>';
             for (let i = 0; i <= 9; i++){
-                if (gameElement.gameboard.getBoard()[i] === gameElement.symbolArr.getArr()[0]) {
+                if (gameElements.gameboard.getBoard()[i] === gameElements.symbolArr.getArr()[0]) {
                     cacheDom.gridArray[i].innerHTML = xDiv;
                 }
-                else if (gameElement.gameboard.getBoard()[i] === gameElement.symbolArr.getArr()[1]) {
+                else if (gameElements.gameboard.getBoard()[i] === gameElements.symbolArr.getArr()[1]) {
                     cacheDom.gridArray[i].innerHTML = circleDiv;
                 }
-                else if (gameElement.gameboard.getBoard()[i] === '') {
+                else if (gameElements.gameboard.getBoard()[i] === '') {
                     cacheDom.gridArray[i].innerHTML = '';
                 };
             };
@@ -105,19 +96,22 @@ const game = (() => {
             e.target.src = avatarArr[newNum];
             e.target.dataset.avatarIndex  = newNum;
         };
-
         const updatePlayerNames = () => {
-            cacheDom.playerOneNameDisplay.innerHTML = gameElement.playerManager.playerOne.getName();
-            cacheDom.playerTwoNameDisplay.innerHTML = gameElement.playerManager.playerTwo.getName();
+            //cacheDom.playerOneNameDisplay.innerHTML = gameElements.playerOne.getName();
+            //cacheDom.playerTwoNameDisplay.innerHTML = gameElements.playerTwo.getName();
         };
-
         return {
+            Player,
+            gameboard,
+            symbolArr,
             render,
             changeAvatar,
-            updatePlayerNames
+            updatePlayerNames,
+            errorMessage,
+            makePlayers
         };
-
     })();
+
     const gamePlay = (() => {
         const setGameWindow = (e) => {
             if (e.currentTarget.id === 'pvp'){
@@ -145,18 +139,18 @@ const game = (() => {
             let element = e.target;
             if (turnTracker.getTurn() === 0){
                 turnTracker.setTurn(1);
-                gameElement.gameboard.addChoice(gameElement.symbolArr.getArr()[0], element.id);
+                gameElements.gameboard.addChoice(gameElements.symbolArr.getArr()[0], element.id);
             }
             else if (turnTracker.getTurn() === 1) {
                 turnTracker.setTurn(0);
-                gameElement.gameboard.addChoice(gameElement.symbolArr.getArr()[1], element.id);
+                gameElements.gameboard.addChoice(gameElements.symbolArr.getArr()[1], element.id);
             };
-            displayManager.render();
+            gameElements.render();
             element.removeEventListener('click', gamePlay.nextTurn);
 
-            console.log(gameElement.gameboard.getBoard());
+            console.log(gameElements.gameboard.getBoard());
 
-            checkGameOver(gameElement.gameboard.getBoard());
+            checkGameOver(gameElements.gameboard.getBoard());
         };
 
         const gameOver = (tie) => {
@@ -233,18 +227,18 @@ const game = (() => {
             cacheDom.playerNamePopup.style.display = "flex";
         });
         startButton.addEventListener( 'click', function (){
-            gameElement.playerManager();
+            gameElements.makePlayers();
             cacheDom.playerNamePopup.style.display = "none";
             bindGrid();                 
         });
         playerVsComputerButton.addEventListener('click', function() {
             cacheDom.firstPopup.style.display = "none";
         });
-        playerAvatars.forEach(element => { element.addEventListener('click', displayManager.changeAvatar ) });
+        playerAvatars.forEach(element => { element.addEventListener('click', gameElements.changeAvatar ) });
         newGameButton.addEventListener('click', function(){
-            gameElement.gameboard.resetBoard();
+            gameElements.gameboard.resetBoard();
             cacheDom.bindGrid();
-            displayManager.render();
+            gameElements.render();
         });
         newPlayersButton.addEventListener('click', function(){
             location.reload();
@@ -257,10 +251,12 @@ const game = (() => {
             playerNamePopup,
             playerOneNameDisplay,
             playerTwoNameDisplay,
-            bindGrid
+            bindGrid,
         };
     })();
     return {
-        gameElement
+        gameElements,
+        cacheDom,
+        gamePlay
     };
 })();
