@@ -13,7 +13,7 @@ const game = (() => {
         const Player = (name, pieceSelection) => {
             const playerName = name;
             const getName = () => playerName;
-            const symbol = pieceSelection;        
+            const symbol = pieceSelection;  
             const sayPiece = () => console.log(`you play ${symbol}`);
             const makeSelection = () => symbol;
             const sayName = () => console.log("Player: " + playerName);
@@ -40,14 +40,18 @@ const game = (() => {
             };
         })();
         const playerManager = () => {
+            const errorMessage = () => {
+                alert("nice try pal...");
+                location.reload();
+            };
             const playerOne = Player(cacheDom.playerOneInput, symbolArr.getArr()[0]);
-            if (!playerOne.getName) {
+            if (playerOne.getName === "") {
                 errorMessage();
             };
             playerOne.sayName();
             playerOne.sayPiece();
             const playerTwo = Player(cacheDom.playerTwoInput, symbolArr.getArr()[1]);
-            if (!playerTwo.getName) {
+            if (!playerTwo.getName === "") {
                 errorMessage();
             };
             playerTwo.sayPiece();
@@ -56,7 +60,7 @@ const game = (() => {
                 playerOne,
                 playerTwo
             };
-        };  
+        };
         return {
             Player,
             gameboard,
@@ -64,8 +68,6 @@ const game = (() => {
             playerManager
         };
     })();
-
-
     const displayManager = (() => {
         function render() {
             const circleDiv = '<div class="outer-circle flex-center"><div class="inner-circle"></div></div>';
@@ -117,18 +119,13 @@ const game = (() => {
 
     })();
     const gamePlay = (() => {
-        const errorMessage = () => {
-            alert("nice try pal...");
-            location.reload();
-        };
         const setGameWindow = (e) => {
             if (e.currentTarget.id === 'pvp'){
                 //make options appear
             } else if (e.currentTarget.id ==='pvc'){
                 //make other options appear
             };
-        };    
-
+        };
         const turnTracker = (() => {
             let turn = 0;
             const getTurn = () => {
@@ -144,7 +141,6 @@ const game = (() => {
                 setTurn
             };
         })();
-
         function nextTurn(e) {
             let element = e.target;
             if (turnTracker.getTurn() === 0){
@@ -247,7 +243,6 @@ const game = (() => {
             newPlayersButton
         };
     })();
-
     const bindEvents = (() => {
         const bindGrid = () => {
             cacheDom.gridArray.forEach(element => { element.addEventListener('click', gamePlay.nextTurn) });
