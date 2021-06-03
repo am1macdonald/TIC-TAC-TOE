@@ -224,53 +224,41 @@ const game = (() => {
         const playerTwoNameDisplay = document.getElementById("player-two-name-display");
         const newGameButton = document.getElementById("new-game-button");
         const newPlayersButton = document.getElementById("new-players-button");
-        return {
-            gridArray, 
-            playerVsPlayerButton,
-            playerVsComputerButton,
-            firstPopup, 
-            playerOneInput, 
-            playerTwoInput, 
-            startButton,
-            playerInputPopup,
-            playerNamePopup,
-            playerOneCard,
-            playerTwoCard,
-            playerAvatars,
-            playerOneNameDisplay,
-            playerTwoNameDisplay,
-            newGameButton,
-            newPlayersButton
-        };
-    })();
-    const bindEvents = (() => {
         const bindGrid = () => {
-            cacheDom.gridArray.forEach(element => { element.addEventListener('click', gamePlay.nextTurn) });
+            gridArray.forEach(element => { element.addEventListener('click', gamePlay.nextTurn) });
         };
-        cacheDom.playerVsPlayerButton.addEventListener('click', function(){
+        playerVsPlayerButton.addEventListener('click', function(){
             gamePlay.setGameWindow;
             cacheDom.firstPopup.style.display = "none";
             cacheDom.playerNamePopup.style.display = "flex";
         });
-        cacheDom.startButton.addEventListener( 'click', function (){
+        startButton.addEventListener( 'click', function (){
             gameElement.playerManager();
             cacheDom.playerNamePopup.style.display = "none";
             bindGrid();                 
         });
-        cacheDom.playerVsComputerButton.addEventListener('click', function() {
+        playerVsComputerButton.addEventListener('click', function() {
             cacheDom.firstPopup.style.display = "none";
         });
-        cacheDom.playerAvatars.forEach(element => { element.addEventListener('click', displayManager.changeAvatar ) });
-        cacheDom.newGameButton.addEventListener('click', function(){
+        playerAvatars.forEach(element => { element.addEventListener('click', displayManager.changeAvatar ) });
+        newGameButton.addEventListener('click', function(){
             gameElement.gameboard.resetBoard();
-            bindEvents.bindGrid();
+            cacheDom.bindGrid();
             displayManager.render();
         });
-        cacheDom.newPlayersButton.addEventListener('click', function(){
+        newPlayersButton.addEventListener('click', function(){
             location.reload();
         });
-
-        return { bindGrid };
+        return {
+            gridArray,
+            firstPopup, 
+            playerOneInput, 
+            playerTwoInput,
+            playerNamePopup,
+            playerOneNameDisplay,
+            playerTwoNameDisplay,
+            bindGrid
+        };
     })();
     return {
         gameElement
