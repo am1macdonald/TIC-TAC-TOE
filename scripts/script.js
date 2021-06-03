@@ -17,7 +17,7 @@ const game = (() => {
             const sayPiece = () => console.log(`you play ${symbol}`);
             const makeSelection = () => symbol;
             const sayName = () => console.log("Player: " + playerName);
-            return { sayName, sayPiece, makeSelection, getName, symbol };
+            return { sayName, sayPiece, makeSelection, getName };
         };
         const gameboard = (() => {
             let board = ['','','','','','','','',''];
@@ -38,11 +38,30 @@ const game = (() => {
                 addChoice,
                 resetBoard
             };
-        })();  
+        })();
+        const playerManager = () => {
+            const playerOne = Player(cacheDom.playerOneInput, symbolArr.getArr()[0]);
+            if (!playerOne.getName) {
+                errorMessage();
+            };
+            playerOne.sayName();
+            playerOne.sayPiece();
+            const playerTwo = Player(cacheDom.playerTwoInput, symbolArr.getArr()[1]);
+            if (!playerTwo.getName) {
+                errorMessage();
+            };
+            playerTwo.sayPiece();
+            playerTwo.sayName();
+            return {
+                playerOne,
+                playerTwo
+            };
+        };  
         return {
             Player,
             gameboard,
-            symbolArr
+            symbolArr,
+            playerManager
         };
     })();
 
@@ -85,9 +104,9 @@ const game = (() => {
             e.target.dataset.avatarIndex  = newNum;
         };
 
-        const updatePlayerNames = (player1, player2) => {
-            cacheDom.playerOneNameDisplay.innerHTML = player1;
-            cacheDom.playerTwoNameDisplay.innerHTML = player2;
+        const updatePlayerNames = () => {
+            cacheDom.playerOneNameDisplay.innerHTML = gameElement.playerManager.playerOne.getName();
+            cacheDom.playerTwoNameDisplay.innerHTML = gameElement.playerManager.playerTwo.getName();
         };
 
         return {
@@ -108,28 +127,7 @@ const game = (() => {
             } else if (e.currentTarget.id ==='pvc'){
                 //make other options appear
             };
-        };
-
-        const players = () => {
-            const playerOne = gameElement.Player(cacheDom.playerOneInput, gameElement.symbolArr.getArr()[0]);
-            if (!playerOne.getName) {
-                errorMessage();
-            };
-            let name1 = playerOne.sayName();
-            playerOne.sayPiece();
-            const playerTwo = gameElement.Player(cacheDom.playerTwoInput, gameElement.symbolArr.getArr()[1]);
-            if (!playerTwo.getName) {
-                errorMessage();
-            };
-            let name2 = playerTwo.sayName();
-            playerTwo.sayPiece();
-
-            displayManager.updatePlayerNames(name1, name2);
-            return {
-                playerOne,
-                playerTwo
-            };
-        };       
+        };    
 
         const turnTracker = (() => {
             let turn = 0;
@@ -210,7 +208,7 @@ const game = (() => {
                 return false;
             };
         };
-        return { nextTurn, setGameWindow, turnTracker, players };
+        return { nextTurn, setGameWindow, turnTracker };
     })(); 
 
     const cacheDom = (() => {
@@ -221,7 +219,7 @@ const game = (() => {
         const playerVsComputerButton = document.getElementById("pvc");
         const playerOneInput = document.getElementById("player-one-name").value;
         const playerTwoInput = document.getElementById("player-two-name").value;
-        const playerSubmitButton = document.getElementById("player-submit");
+        const startButton = document.getElementById("player-submit");
         const playerInputPopup = document.getElementById("player-select-popup");
         const playerNamePopup = document.getElementById("player-name-popup");
         const playerOneCard = document.getElementById("player-1-card");
@@ -229,14 +227,15 @@ const game = (() => {
         const playerOneNameDisplay = document.getElementById("player-one-name-display");
         const playerTwoNameDisplay = document.getElementById("player-two-name-display");
         const newGameButton = document.getElementById("new-game-button");
-        return { 
+        const newPlayersButton = document.getElementById("new-players-button");
+        return {
             gridArray, 
             playerVsPlayerButton,
             playerVsComputerButton,
             firstPopup, 
             playerOneInput, 
             playerTwoInput, 
-            playerSubmitButton,
+            startButton,
             playerInputPopup,
             playerNamePopup,
             playerOneCard,
@@ -244,7 +243,8 @@ const game = (() => {
             playerAvatars,
             playerOneNameDisplay,
             playerTwoNameDisplay,
-            newGameButton
+            newGameButton,
+            newPlayersButton
         };
     })();
 
@@ -257,11 +257,10 @@ const game = (() => {
             cacheDom.firstPopup.style.display = "none";
             cacheDom.playerNamePopup.style.display = "flex";
         });
-        cacheDom.playerSubmitButton.addEventListener( 'click', function (){
-            gamePlay.players();
-            displayManager.render;
+        cacheDom.startButton.addEventListener( 'click', function (){
+            gameElement.playerManager();
             cacheDom.playerNamePopup.style.display = "none";
-            bindGrid();         
+            bindGrid();                 
         });
         cacheDom.playerVsComputerButton.addEventListener('click', function() {
             cacheDom.firstPopup.style.display = "none";
@@ -272,9 +271,13 @@ const game = (() => {
             bindEvents.bindGrid();
             displayManager.render();
         });
+        cacheDom.newPlayersButton.addEventListener('click', function(){
+            location.reload();
+        });
 
         return { bindGrid };
     })();
-    
-    return { gamePlay, cacheDom };
+    return {
+        gameElement
+    };
 })();
