@@ -28,8 +28,9 @@ const game = (() => {
                 } else alert ("nice try bub...");
             };
             const resetBoard = () => {
-                board.forEach(thing => thing = '');
-                bindEvents.bindGrid();
+                board.forEach(function(thing, ind){
+                    board[ind] = '';
+                });
                 console.log(board);
             };
             return { 
@@ -53,8 +54,12 @@ const game = (() => {
             for (let i = 0; i <= 9; i++){
                 if (gameElement.gameboard.getBoard()[i] === gameElement.symbolArr.getArr()[0]) {
                     cacheDom.gridArray[i].innerHTML = xDiv;
-                } else if (gameElement.gameboard.getBoard()[i] === gameElement.symbolArr.getArr()[1]) {
+                }
+                else if (gameElement.gameboard.getBoard()[i] === gameElement.symbolArr.getArr()[1]) {
                     cacheDom.gridArray[i].innerHTML = circleDiv;
+                }
+                else if (gameElement.gameboard.getBoard()[i] === '') {
+                    cacheDom.gridArray[i].innerHTML = '';
                 };
             };
         };
@@ -97,10 +102,8 @@ const game = (() => {
             alert("nice try pal...");
             location.reload();
         };
-
         const setGameWindow = (e) => {
             if (e.currentTarget.id === 'pvp'){
-
                 //make options appear
             } else if (e.currentTarget.id ==='pvc'){
                 //make other options appear
@@ -108,7 +111,6 @@ const game = (() => {
         };
 
         const players = () => {
-            console.log(cacheDom.playerOneInput, cacheDom.playerTwoInput);
             const playerOne = gameElement.Player(cacheDom.playerOneInput, gameElement.symbolArr.getArr()[0]);
             if (!playerOne.getName) {
                 errorMessage();
@@ -265,7 +267,11 @@ const game = (() => {
             cacheDom.firstPopup.style.display = "none";
         });
         cacheDom.playerAvatars.forEach(element => { element.addEventListener('click', displayManager.changeAvatar ) });
-        cacheDom.newGameButton.addEventListener('click', gameElement.gameboard.resetBoard);
+        cacheDom.newGameButton.addEventListener('click', function(){
+            gameElement.gameboard.resetBoard();
+            bindEvents.bindGrid();
+            displayManager.render();
+        });
 
         return { bindGrid };
     })();
