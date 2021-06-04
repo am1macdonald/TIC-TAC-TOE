@@ -50,7 +50,6 @@ const game = (() => {
             if (playerOne.getName() === "") {
                 errorMessage();
             };
-            playerOneNameDisplay.innerHTML = playerOne.getName();
             const playerTwo = gameElements.Player(cacheDom.playerTwoInput, symbolArr.getArr()[1]);
             if (!playerTwo.getName() === "") {
                 errorMessage();
