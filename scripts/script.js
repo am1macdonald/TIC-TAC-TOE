@@ -44,21 +44,24 @@ const game = (() => {
                 resetBoard
             };
         })();
-        function makePlayers() {
+        const makePlayers = () => {
+            const players = [];
             const playerOne = gameElements.Player(cacheDom.playerOneInput, symbolArr.getArr()[0]);
             if (playerOne.getName() === "") {
                 errorMessage();
             };
-            console.log(playerOne.getName());
-            playerOne.sayName();
-            playerOne.sayPiece();
+            playerOneNameDisplay.innerHTML = playerOne.getName();
             const playerTwo = gameElements.Player(cacheDom.playerTwoInput, symbolArr.getArr()[1]);
             if (!playerTwo.getName() === "") {
                 errorMessage();
             };
+            players.push(playerOne);
             playerTwo.sayPiece();
             playerTwo.sayName();
             console.log(playerTwo);
+            return {
+                players
+            }
         };
         function render() {
             const circleDiv = '<div class="outer-circle flex-center"><div class="inner-circle"></div></div>';
