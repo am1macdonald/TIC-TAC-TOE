@@ -1,5 +1,4 @@
 const game = (() => {
-
     const gameElements = (() => {
         const symbolArr = (() => {
             const arr = [String.fromCharCode(10060), String.fromCharCode(8413)];
@@ -46,7 +45,6 @@ const game = (() => {
                 board.forEach(function(thing, ind){
                     board[ind] = '';
                 });
-                console.log(board);
             };
             return { 
                 getBoard, 
