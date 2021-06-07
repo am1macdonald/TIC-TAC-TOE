@@ -210,9 +210,7 @@ const game = (() => {
             bindGrid();
             gameElements.updatePlayerNames();
         });
-        playerVsComputerButton.addEventListener('click', function() {
-            cacheDom.firstPopup.style.display = "none";
-        });
+        playerVsComputerButton.addEventListener('click', gamePlay.setGameWindow);
         playerAvatars.forEach(element => { element.addEventListener('click', gameElements.changeAvatar ) });
         newGameButton.addEventListener('click', function(){
             gameElements.gameboard.resetBoard();
