@@ -7,6 +7,8 @@
         <title>Tic-Tac-Toe Game</title>        
         <link rel="stylesheet" href="stylesheets/reset.css" />
         <link rel="stylesheet" href="stylesheets/style.css"/>
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap" rel="stylesheet"> 
     </head>
     <body>
         <nav class="flex-center">
@@ -32,7 +34,8 @@
                     <button id="player-submit">Start</button>
                 </div>
             </div>
-            <div id="player-display">
+            <div id="player-display" class="flex-center">
+                <p id="display-info">Click to change avatar!</p>
                 <div class="player-card flex-center" id="player-1-card">
                     <img data-avatar-index="2" src="assets\8-BIT\Color\SVG\8-bit pixel Avatar Illustrations-03.svg" alt="player one's avatar" class="player-avatar" id="player-one-avatar">
                     <p id="player-one-name-display">Player 1</p>
@@ -48,15 +51,15 @@
             </div>
             <div id="gameboard-container" class="flex-center">
                 <div id="gameboard">
-                    <div class="game-cell flex-center" id="0"></div>
-                    <div class="game-cell flex-center" id="1"></div>
-                    <div class="game-cell flex-center" id="2"></div>
-                    <div class="game-cell flex-center" id="3"></div>
-                    <div class="game-cell flex-center" id="4"></div>
-                    <div class="game-cell flex-center" id="5"></div>
-                    <div class="game-cell flex-center" id="6"></div>
-                    <div class="game-cell flex-center" id="7"></div>
-                    <div class="game-cell flex-center" id="8"></div>
+                    <div class="game-cell flex-center bottom-border right-border" id="0"></div>
+                    <div class="game-cell flex-center bottom-border left-border right-border" id="1"></div>
+                    <div class="game-cell flex-center bottom-border left-border" id="2"></div>
+                    <div class="game-cell flex-center top-border bottom-border right-border" id="3"></div>
+                    <div class="game-cell flex-center top-border bottom-border left-border right-border" id="4"></div>
+                    <div class="game-cell flex-center top-border bottom-border left-border" id="5"></div>
+                    <div class="game-cell flex-center top-border right-border" id="6"></div>
+                    <div class="game-cell flex-center top-border left-border right-border" id="7"></div>
+                    <div class="game-cell flex-center top-border left-border" id="8"></div>
                 </div>
             </div>
         </main>
