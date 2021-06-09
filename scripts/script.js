@@ -15,7 +15,7 @@ const game = (() => {
             let nameSet = 0;
             // like a burn-in, stops the Player's name from being changed after setting.
             const setName = (name) => {
-                if (nameSet === 0){
+                if (nameSet === 0 && name != ""){
                     playerName = name;
                     nameSet = 1;
                 };     
@@ -186,8 +186,10 @@ const game = (() => {
         const firstPopup = document.getElementById("first-popup");
         const playerVsPlayerButton = document.getElementById("pvp");
         const playerVsComputerButton = document.getElementById("pvc");
-        const playerOneInput = document.getElementById("player-one-name").value;
-        const playerTwoInput = document.getElementById("player-two-name").value;
+        const playerOneInput = document.getElementById("player-one-name");
+        playerOneInput.value = "";
+        const playerTwoInput = document.getElementById("player-two-name");
+        playerTwoInput.value = "";
         const startButton = document.getElementById("player-submit");
         const playerInputPopup = document.getElementById("player-select-popup");
         const playerNamePopup = document.getElementById("player-name-popup");
@@ -202,8 +204,8 @@ const game = (() => {
         };
         playerVsPlayerButton.addEventListener('click', gamePlay.setGameWindow);
         startButton.addEventListener( 'click', function (){
-            gameElements.playerOne.setName(playerOneInput);
-            gameElements.playerTwo.setName(playerTwoInput);
+            gameElements.playerOne.setName(playerOneInput.value);
+            gameElements.playerTwo.setName(playerTwoInput.value);
             cacheDom.playerNamePopup.style.display = "none";
             bindGrid();
             gameElements.updatePlayerNames();
