@@ -1,4 +1,3 @@
-- fix player name display
 - gameEnd function must find who wins and announce it!
 
 
