@@ -1,6 +1,6 @@
 .flex-center {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
 }
 body { 
@@ -18,7 +18,7 @@ nav{
     padding: 0.5em 1em
 }
 nav button{
-    background-color: #eebbc3;
+    background-color: #dfedff;
     color: #232946;
     width: 6rem;
     height: 3rem;
@@ -37,24 +37,38 @@ h1{
     font-size: 6vmin;
 }
 .popup {    
-    background-color: black;
-    height: 55vh;
-    width: 65vw;
+    background-color: #396EB0;
+    height: auto;
+    width: 50vw;
+    padding: 5vmin;
     position: absolute;
     justify-content: space-around;
+    border-radius: 1vmin;
 }
 #first-popup {
     display: flex;
-
     z-index: 999;
 }
 .popup-button {
-    height: 25%;
+    background-color: #dfedff;
+    min-height: 10vmin;
     width: 35%;
-    font-size: xx-large;
+    max-width: 215px;
+    font-size: 2vmin;
+    padding: 0.3vmin;
+    border:none;
+    border-radius: 1vmin;
+    box-shadow: .5vmin .5vmin hsl(213, 64%, 53%);
 }
+.popup-button:hover{
+    transform: scale(1.05);
+} 
 #player-name-popup{
     display: none;
+}
+#winner-popup {
+    display: none;
+    z-index: 999;
 }
 #player-data {
     flex-direction: column;
