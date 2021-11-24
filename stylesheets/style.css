@@ -102,8 +102,6 @@ h1{
 }
 .player-avatar{
     height:100%;
-    background: rgb(184,193,236);
-    background: radial-gradient(circle, rgba(184,193,236,1), transparent 135px);
     border-radius: 50%;
 }
 #gameboard {
