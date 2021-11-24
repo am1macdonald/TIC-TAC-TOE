@@ -39,16 +39,18 @@ h1{
 }
 .popup {    
     background-color: #396EB0;
-    height: auto;
-    width: 50vw;
+    height: clamp(0%, 85vw, 400px);
+    width: clamp(0%,85vmin,400px);
     padding: 5vmin;
     position: absolute;
-    justify-content: space-around;
     border-radius: 1vmin;
 }
 #first-popup {
     display: flex;
     z-index: 999;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
 }
 .popup-button {
     background-color: #dfedff;
