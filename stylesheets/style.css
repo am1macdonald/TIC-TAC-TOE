@@ -40,10 +40,10 @@ h1{
 .popup {    
     background-color: #396EB0;
     height: clamp(0%, 85vw, 400px);
-    width: clamp(0%,85vmin,400px);
+    width: clamp(0%,85vw,400px);
     padding: 5vmin;
     position: absolute;
-    border-radius: 1vmin;
+    border-radius: 1.5vmin;
 }
 #first-popup {
     display: flex;
@@ -54,17 +54,23 @@ h1{
 }
 .popup-button {
     background-color: #dfedff;
-    min-height: 10vmin;
-    width: 35%;
-    max-width: 215px;
-    font-size: 2vmin;
-    padding: 0.3vmin;
-    border:none;
+    width: clamp(0px, 200px, 200px);
+    height: clamp(0px, 50%, 100px);
+    font-size: clamp(0px, 30px, 30px);
+    padding: 2%;
     border-radius: 1vmin;
-    box-shadow: .5vmin .5vmin hsl(213, 64%, 53%);
+    box-shadow: .8vmin .8vmin hsla(213.3, 47.4%, 38%, 0.67);
+    border: none;
 }
 .popup-button:hover{
     transform: scale(1.05);
+    box-shadow: 1.5vmin 1.5vmin hsla(213.3, 47.4%, 38%, 0.67);
+    transition: 0.11s;
+} 
+.popup-button:active{
+    transform: scale(0.95);
+    box-shadow: 0.7vmin 0.7vmin hsla(213.3, 47.4%, 38%, 0.67);
+    transition: 0.11s;
 } 
 #player-name-popup{
     display: none;
