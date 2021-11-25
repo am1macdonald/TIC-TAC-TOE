@@ -18,7 +18,15 @@ nav{
     justify-content: space-between;
     padding: 0.5em 1em
 }
-nav button{
+#button-div{
+    width: 50vmin;
+    height: auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    
+}
+.nav-button{
     background-color: #dfedff;
     width: clamp(0px, 20vmin, 110px);
     height: clamp(0px, 15mvin, 80px);
@@ -27,15 +35,14 @@ nav button{
     border-radius: 1vmin;
     box-shadow: .8vmin .8vmin hsla(213.3, 47.4%, 38%, 0.67);
     border: none;
-    align-content: center;
     text-align: center;
 }
-nav button:hover{
+.nav-button:hover{
     transform: scale(1.05);
-    box-shadow: 1.5vmin 1.5vmin hsla(213.3, 47.4%, 38%, 0.67);
+    box-shadow: 0.9vmin 0.9vmin hsla(213.3, 47.4%, 38%, 0.67);
     transition: 0.11s;
 }
-nav button:active{
+.nav-button:active{
     transform: scale(0.95);
     box-shadow: 0.7vmin 0.7vmin hsla(213.3, 47.4%, 38%, 0.67);
     transition: 0.11s;
