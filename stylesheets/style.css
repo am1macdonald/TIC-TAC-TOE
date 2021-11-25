@@ -20,11 +20,25 @@ nav{
 }
 nav button{
     background-color: #dfedff;
-    color: #232946;
-    width: 6rem;
-    height: 3rem;
-    margin: 0 1em;
-    
+    width: clamp(0px, 20vmin, 110px);
+    height: clamp(0px, 15mvin, 80px);
+    font-size: clamp(0px, 3vmin, 14px);
+    padding: 2%;
+    border-radius: 1vmin;
+    box-shadow: .8vmin .8vmin hsla(213.3, 47.4%, 38%, 0.67);
+    border: none;
+    align-content: center;
+    text-align: center;
+}
+nav button:hover{
+    transform: scale(1.05);
+    box-shadow: 1.5vmin 1.5vmin hsla(213.3, 47.4%, 38%, 0.67);
+    transition: 0.11s;
+}
+nav button:active{
+    transform: scale(0.95);
+    box-shadow: 0.7vmin 0.7vmin hsla(213.3, 47.4%, 38%, 0.67);
+    transition: 0.11s;
 }
 main{
     position:fixed;
@@ -42,12 +56,15 @@ h1{
     height: clamp(0%, 85vw, 400px);
     width: clamp(0%,85vw,400px);
     padding: 5vmin;
+    border-radius: 1.5vmin;    
     position: absolute;
-    border-radius: 1.5vmin;
+    top: 50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    z-index: 999;
 }
 #first-popup {
     display: flex;
-    z-index: 999;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
@@ -63,6 +80,7 @@ h1{
     border: none;
     align-content: center;
     text-align: center;
+    z-index: 999;
 }
 .popup-button:hover{
     transform: scale(1.05);
@@ -99,7 +117,6 @@ input[type=text]{
 }
 #winner-popup {
     display: none;
-    z-index: 999;
 }
 #gameboard-container {
     width: 80vmin;

@@ -15,29 +15,29 @@
             <div id="title-div">
                 <h1 id="title">Tic-Tac-Toe</h1>
             </div>
-            <div id="button-div" class="flex-center">
+            <div id="button-div"></div>
                 <button id="new-players-button">New Players</button>
                 <button id="new-game-button">New Game</button>
             </div>
         </nav>
-        <main id="background" class="flex-center">
-            <div id="first-popup" class="popup">
-                <button class="popup-button" id="pvp">Player vs Player</button>
-                <button class="popup-button" id="pvc">Player vs Computer</button>
-            </div>
-            <div id="player-name-popup" class="popup">
-                <div id="player-data-form" class="flex-center">
-                    <div id="input-div">
-                        <input type="text" placeholder="Player 1 Name" id="player-one-name" />
-                        <input type="text" placeholder="Player 2 Name" id="player-two-name" />
-                    </div>
-                    <button class="popup-button" id="player-submit">Start</button>
+        <div id="first-popup" class="popup">
+            <button class="popup-button" id="pvp">Player vs Player</button>
+            <button class="popup-button" id="pvc">Player vs Computer</button>
+        </div>
+        <div id="player-name-popup" class="popup">
+            <div id="player-data-form" class="flex-center">
+                <div id="input-div">
+                    <input type="text" placeholder="Player 1 Name" id="player-one-name" />
+                    <input type="text" placeholder="Player 2 Name" id="player-two-name" />
                 </div>
+                <button class="popup-button" id="player-submit">Start</button>
             </div>
-            <div id="winner-popup" class="popup">
-                <h1></h1>
-            </div>
-            
+        </div>
+        <div id="winner-popup" class="popup">
+            <h1></h1>
+        </div>
+        <main id="background">
+           
             <div id="player-display" class="flex-center">
                 <p id="display-info">Click to change avatar!</p>
                 <div class="player-card flex-center" id="player-1-card">
