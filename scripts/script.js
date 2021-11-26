@@ -139,7 +139,9 @@ const game = (() => {
             }
             else {
             cacheDom.gridArray.forEach(element => { element.removeEventListener('click', gamePlay.nextTurn) });
-            alert(`${lastTurn} wins!`);
+            cacheDom.winnerAnnouncement.innerHTML= `${lastTurn} wins!`;
+            cacheDom.mainDiv.style.filter = "blur(4px)";
+            cacheDom.winnerAnnouncement.parentElement.style.display = "flex";
             };
         };
         function checkGameOver(board) {
@@ -179,11 +181,11 @@ const game = (() => {
         };
         return { nextTurn, setGameWindow };
     })(); 
-
     const cacheDom = (() => {
         const gridArray = Array.from(document.getElementsByClassName("game-cell"));
         const playerAvatars = Array.from(document.getElementsByClassName("player-avatar"));
         const firstPopup = document.getElementById("first-popup");
+        const winnerAnnouncement = document.getElementsByTagName("h2")[0];
         const playerVsPlayerButton = document.getElementById("pvp");
         const playerVsComputerButton = document.getElementById("pvc");
         const playerOneInput = document.getElementById("player-one-name");
@@ -215,6 +217,8 @@ const game = (() => {
         playerVsComputerButton.addEventListener('click', gamePlay.setGameWindow);
         playerAvatars.forEach(element => { element.addEventListener('click', gameElements.changeAvatar ) });
         newGameButton.addEventListener('click', function(){
+            cacheDom.winnerAnnouncement.parentElement.style.display = "none";
+            cacheDom.mainDiv.style.filter = "none";
             gameElements.gameboard.resetBoard();
             cacheDom.bindGrid();
             gameElements.render();
@@ -231,7 +235,8 @@ const game = (() => {
             playerOneNameDisplay,
             playerTwoNameDisplay,
             bindGrid,
-            mainDiv
+            mainDiv,
+            winnerAnnouncement
         };
     })();
     return {

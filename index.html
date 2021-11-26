@@ -34,19 +34,20 @@
             </div>
         </div>
         <div id="winner-popup" class="popup">
-            <h1></h1>
+            <h2>Blank Wins!</h2>
         </div>
-        <main id="background">
-           
+        <main id="background">           
             <div id="player-display" class="flex-center">
                 <p id="display-info">Click to change avatar!</p>
-                <div class="player-card flex-center" id="player-1-card">
-                    <img data-avatar-index="2" src="assets\8-BIT\Color\SVG\8-bit pixel Avatar Illustrations-03.svg" alt="player one's avatar" class="player-avatar" id="player-one-avatar">
-                    <p id="player-one-name-display">Player 1</p>
-                </div>
-                <div class="player-card flex-center" id="player-2-card">
-                    <img data-avatar-index="6" src="assets\8-BIT\Color\SVG\8-bit pixel Avatar Illustrations-07.svg" alt="player two's avatar" class="player-avatar" id="player-two-avatar">
-                    <p id="player-two-name-display">Player 2</p>
+                <div id="player-avatars">
+                    <div class="player-card flex-center" id="player-1-card">
+                        <img data-avatar-index="2" src="assets\8-BIT\Color\SVG\8-bit pixel Avatar Illustrations-03.svg" alt="player one's avatar" class="player-avatar" id="player-one-avatar">
+                        <p id="player-one-name-display">Player 1</p>
+                    </div>
+                    <div class="player-card flex-center" id="player-2-card">
+                        <img data-avatar-index="6" src="assets\8-BIT\Color\SVG\8-bit pixel Avatar Illustrations-07.svg" alt="player two's avatar" class="player-avatar" id="player-two-avatar">
+                        <p id="player-two-name-display">Player 2</p>
+                    </div>
                 </div>
             </div>
             <div id="gameboard-container" class="flex-center">
@@ -65,5 +66,4 @@
         </main>
         <script src="scripts/script.js"></script>
     </body>
-
 </html>
