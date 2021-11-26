@@ -54,7 +54,7 @@ main {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    filter: none;
+    filter: blur(4px);
 }
 h1 {
     font-size: 6vmin;

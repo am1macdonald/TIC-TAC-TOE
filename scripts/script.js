@@ -199,6 +199,7 @@ const game = (() => {
         const playerTwoNameDisplay = document.getElementById("player-two-name-display");
         const newGameButton = document.getElementById("new-game-button");
         const newPlayersButton = document.getElementById("new-players-button");
+        const mainDiv = document.getElementsByTagName("main")[0];
         const bindGrid = () => {
             gridArray.forEach(element => { element.addEventListener('click', gamePlay.nextTurn) });
         };
@@ -207,6 +208,7 @@ const game = (() => {
             gameElements.playerOne.setName(playerOneInput.value);
             gameElements.playerTwo.setName(playerTwoInput.value);
             cacheDom.playerNamePopup.style.display = "none";
+            cacheDom.mainDiv.style.filter = "none";
             bindGrid();
             gameElements.updatePlayerNames();
         });
@@ -229,6 +231,7 @@ const game = (() => {
             playerOneNameDisplay,
             playerTwoNameDisplay,
             bindGrid,
+            mainDiv
         };
     })();
     return {
